@@ -1,25 +1,22 @@
 package com.school.cmput301;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-public class MainActivity extends Activity {
-	
+public class ClaimEditorActivity extends Activity {
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
+		setContentView(R.layout.claim_editor);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.claim_editor, menu);
 		return true;
 	}
 
@@ -33,10 +30,5 @@ public class MainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	public void launchClaimEditor(View v){
-		Intent intent = new Intent(this, ClaimCreatorActivity.class);
-		startActivity(intent);
 	}
 }

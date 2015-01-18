@@ -26,6 +26,10 @@
             android:name=".ClaimCreatorActivity"
             android:label="@string/title_activity_claim_creator" >
         </activity>
+        <activity
+            android:name=".ClaimEditorActivity"
+            android:label="@string/title_activity_claim_editor" >
+        </activity>
     </application>
 
 </manifest>

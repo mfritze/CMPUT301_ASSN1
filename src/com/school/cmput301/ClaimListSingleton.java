@@ -1,11 +1,13 @@
 package com.school.cmput301;
 
+import java.util.ArrayList;
+
 public class ClaimListSingleton {
-	private static ClaimList claimList;
+	private static ArrayList<Claim> claimList;
 	
-	static public ClaimList getStudentList(){
+	static public ArrayList<Claim> getClaimList(){
 		if(claimList == null){
-			claimList = new ClaimList();
+			claimList = new ArrayList<Claim>();
 		}
 		return claimList;
 	}

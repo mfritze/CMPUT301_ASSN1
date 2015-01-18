@@ -30,8 +30,8 @@ public final class R {
         public static final int approveClaim=0x7f080013;
         public static final int cancelExpense=0x7f080011;
         public static final int claimCategoryEditText=0x7f080007;
-        public static final int claimDateEditText=0x7f080008;
-        public static final int claimDescriptionEditText=0x7f080009;
+        public static final int claimDatePicker=0x7f080009;
+        public static final int claimDescriptionEditText=0x7f080008;
         public static final int claimListView=0x7f080000;
         public static final int claimNameEditText=0x7f080006;
         public static final int claimTitle=0x7f080002;
@@ -57,7 +57,8 @@ public final class R {
     }
     public static final class menu {
         public static final int claim_creator=0x7f070000;
-        public static final int main=0x7f070001;
+        public static final int claim_editor=0x7f070001;
+        public static final int main=0x7f070002;
     }
     public static final class string {
         public static final int action_settings=0x7f050002;
@@ -76,6 +77,7 @@ public final class R {
         public static final int submit=0x7f050009;
         public static final int temp=0x7f05000c;
         public static final int title_activity_claim_creator=0x7f05000f;
+        public static final int title_activity_claim_editor=0x7f050010;
     }
     public static final class style {
         /** 

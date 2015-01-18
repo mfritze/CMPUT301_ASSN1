@@ -22,14 +22,6 @@
         android:hint="@string/category" />
 
     <EditText
-        android:id="@+id/claimDateEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/date"
-        android:inputType="date" />
-
-    <EditText
         android:id="@+id/claimDescriptionEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,21 +29,18 @@
         android:hint="@string/description"
         android:inputType="textMultiLine" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:orientation="horizontal"
-        >
-        
-        <Button
-	        android:id="@+id/submitNewClaim"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:onClick="startClaimEditor"
-	        android:text="@string/submit" />
-    </LinearLayout>
-
-
+    <DatePicker
+        android:id="@+id/claimDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        />
+      
+	<Button
+       android:id="@+id/submitNewClaim"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:onClick="startClaimEditor"
+       android:text="@string/submit" />
 
 </LinearLayout>

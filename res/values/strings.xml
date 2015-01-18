@@ -17,5 +17,6 @@
     <string name="cost">Cost</string>
     <string name="claim_title">Claim Title</string>
     <string name="title_activity_claim_creator">ClaimCreatorActivity</string>
+    <string name="title_activity_claim_editor">ClaimEditorActivity</string>
 
 </resources>
