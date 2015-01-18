@@ -22,7 +22,7 @@
         android:hint="@string/category" />
 
     <EditText
-        android:id="@+id/claimDate"
+        android:id="@+id/claimDateEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -30,7 +30,7 @@
         android:inputType="date" />
 
     <EditText
-        android:id="@+id/claimDescription"
+        android:id="@+id/claimDescriptionEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -47,15 +47,9 @@
 	        android:id="@+id/submitNewClaim"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
-	        android:layout_weight="0.5"
+	        android:layout_weight="1"
+	        android:onClick="startClaimEditor"
 	        android:text="@string/submit" />
-	
-	    <Button
-	        android:id="@+id/closeNewClaim"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.5"
-	        android:text="@string/cancel" />
     </LinearLayout>
 
 

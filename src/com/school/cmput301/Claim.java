@@ -9,13 +9,12 @@ public class Claim {
 	private Date date;
 	private ArrayList<Expense> expenseList;
 	
-	public Claim(String name, String category,String description,
-			Date date, ClaimStatus status){
+	public Claim(String name, String category,String description, Date date){
 		this.name = name;
 		this.category = category;
 		this.description = description;
 		this.date = date;
-		this.status = status;
+		this.status = new ClaimStatus();
 		this.expenseList = new ArrayList<Expense>();
 	}
 	

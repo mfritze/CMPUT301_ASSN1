@@ -9,14 +9,11 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 	
-	ClaimList claims;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		claims = new ClaimList();
 	}
 
 	@Override
@@ -40,7 +37,7 @@ public class MainActivity extends Activity {
 	
 	public void launchClaimEditor(View v){
 		Intent intent = new Intent(this, ClaimCreatorActivity.class);
-		intent.putExtra(NEW STRING, claims);
+		//intent.putExtra(NEW STRING, claims);
 		startActivity(intent);
 	}
 }
