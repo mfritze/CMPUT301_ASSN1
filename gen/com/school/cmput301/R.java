@@ -29,11 +29,11 @@ public final class R {
         public static final int addExpense=0x7f080005;
         public static final int approveClaim=0x7f080013;
         public static final int cancelExpense=0x7f080011;
-        public static final int claimCategoryEditText=0x7f080007;
-        public static final int claimDatePicker=0x7f080009;
-        public static final int claimDescriptionEditText=0x7f080008;
+        public static final int claimCategoryEditText=0x7f080008;
+        public static final int claimDatePicker=0x7f08000a;
+        public static final int claimDescriptionEditText=0x7f080009;
         public static final int claimListView=0x7f080000;
-        public static final int claimNameEditText=0x7f080006;
+        public static final int claimNameEditText=0x7f080007;
         public static final int claimTitle=0x7f080002;
         public static final int createClaimButton=0x7f080001;
         public static final int currencyList=0x7f080003;
@@ -46,7 +46,7 @@ public final class R {
         public static final int expenseList=0x7f080004;
         public static final int expenseName=0x7f08000b;
         public static final int submitExpense=0x7f080010;
-        public static final int submitNewClaim=0x7f08000a;
+        public static final int submitNewClaim=0x7f080006;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

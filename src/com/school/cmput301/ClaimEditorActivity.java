@@ -1,16 +1,26 @@
 package com.school.cmput301;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class ClaimEditorActivity extends Activity {
-
+	private final String CLAIMINDEX = "com.school.cmput301.claimid";
+	Claim claim;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.claim_editor);
+		
+		Intent intent = getIntent();
+		claim = ClaimListSingleton.getClaimList().get(intent.getIntExtra(CLAIMINDEX,0));
+		
+		TextView title = (TextView) findViewById(R.id.claimTitle);
+		title.setText(claim.getName());
 	}
 
 	@Override

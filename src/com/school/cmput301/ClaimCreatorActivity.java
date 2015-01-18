@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class ClaimCreatorActivity extends Activity {
 	
-	public final String CLAIMINDEX = "com.school.cmput301.claimid";
+	private final static String CLAIMINDEX = "com.school.cmput301.claimid";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

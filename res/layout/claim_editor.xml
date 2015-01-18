@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/claimTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#aaaaaa"
-        android:text="@string/claim_title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+	<TextView
+	    android:id="@+id/claimTitle"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="#aaaaaa"
+	    android:text="@string/claim_title"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
     <LinearLayout
         android:id="@+id/currencyList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/claimTitle"
         android:orientation="vertical" >
 
     </LinearLayout>
@@ -23,15 +23,18 @@
     <ListView
         android:id="@+id/expenseList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_below="@+id/currencyList"
+        android:layout_above="@+id/addExpense"
         >
 
     </ListView>
-
     <Button
         android:id="@+id/addExpense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:text="@string/add_expense" />
 
-</LinearLayout>
+</RelativeLayout>
