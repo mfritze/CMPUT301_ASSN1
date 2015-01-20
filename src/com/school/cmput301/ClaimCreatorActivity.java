@@ -76,9 +76,9 @@ public class ClaimCreatorActivity extends Activity {
 			} 
 			
 			claim = new Claim(name, category, description, date);
-			ClaimListSingleton.getClaimList().add(claim);
+			ClaimListSingleton.getClaimList().addClaim(claim);
 	
-			intent.putExtra(CLAIMINDEX, ClaimListSingleton.getClaimList().indexOf(claim));
+			intent.putExtra(CLAIMINDEX, ClaimListSingleton.getClaimList().getClaims().indexOf(claim));
 			startActivity(intent);
 		}
 	}

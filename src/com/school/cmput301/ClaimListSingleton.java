@@ -3,11 +3,11 @@ package com.school.cmput301;
 import java.util.ArrayList;
 
 public class ClaimListSingleton {
-	private static ArrayList<Claim> claimList;
+	private static ClaimList claimList; 
 	
-	static public ArrayList<Claim> getClaimList(){
+	static public ClaimList getClaimList(){
 		if(claimList == null){
-			claimList = new ArrayList<Claim>();
+			claimList = new ClaimList();
 		}
 		return claimList;
 	}

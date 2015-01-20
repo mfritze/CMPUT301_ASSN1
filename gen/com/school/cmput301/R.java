@@ -25,10 +25,9 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080015;
+        public static final int action_settings=0x7f080014;
         public static final int addExpense=0x7f080005;
-        public static final int approveClaim=0x7f080013;
-        public static final int cancelExpense=0x7f080011;
+        public static final int approveClaim=0x7f080012;
         public static final int claimCategoryEditText=0x7f080008;
         public static final int claimDatePicker=0x7f08000a;
         public static final int claimDescriptionEditText=0x7f080009;
@@ -38,8 +37,8 @@ public final class R {
         public static final int createClaimButton=0x7f080001;
         public static final int currencyList=0x7f080003;
         public static final int currencySelector=0x7f08000e;
-        public static final int editClaimButton=0x7f080014;
-        public static final int emailClaim=0x7f080012;
+        public static final int editClaimButton=0x7f080013;
+        public static final int emailClaim=0x7f080011;
         public static final int expenseCost=0x7f08000d;
         public static final int expenseDate=0x7f08000c;
         public static final int expenseDescription=0x7f08000f;

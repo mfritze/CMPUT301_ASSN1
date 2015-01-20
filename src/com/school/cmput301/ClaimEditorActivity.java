@@ -1,10 +1,18 @@
 package com.school.cmput301;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 public class ClaimEditorActivity extends Activity {
@@ -17,7 +25,7 @@ public class ClaimEditorActivity extends Activity {
 		setContentView(R.layout.claim_editor);
 		
 		Intent intent = getIntent();
-		claim = ClaimListSingleton.getClaimList().get(intent.getIntExtra(CLAIMINDEX,0));
+		claim = ClaimListSingleton.getClaimList().getClaims().get(intent.getIntExtra(CLAIMINDEX,0));
 		
 		TextView title = (TextView) findViewById(R.id.claimTitle);
 		title.setText(claim.getName());
@@ -40,5 +48,9 @@ public class ClaimEditorActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void addExpense(View v){
+
 	}
 }

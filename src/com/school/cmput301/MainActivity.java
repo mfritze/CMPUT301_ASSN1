@@ -19,9 +19,22 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		ListView claimView = (ListView) findViewById(R.id.claimListView);
-		ArrayList<Claim> claims = ClaimListSingleton.getClaimList();
-		ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>(this, android.R.layout.simple_list_item_1 , claims);
+		final ArrayList<Claim> claims = ClaimListSingleton.getClaimList().getClaims();
+		//claims.add(new Claim("tt","c",".",new Date()));
+		final ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>(this, android.R.layout.simple_list_item_1 , claims);
 		claimView.setAdapter(claimAdapter);
+		
+		ClaimListSingleton.getClaimList().addListener(new Listener(){
+			@Override
+			public void update(){
+				claims.clear();
+				ArrayList<Claim> newClaims = ClaimListSingleton.getClaimList().getClaims();
+				for(Claim c : newClaims){
+					claims.add(c);
+				}
+				claimAdapter.notifyDataSetChanged();
+			}
+		});
 	}
 
 	@Override
