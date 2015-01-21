@@ -1,6 +1,7 @@
 package com.school.cmput301;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,8 +20,8 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		ListView claimView = (ListView) findViewById(R.id.claimListView);
-		final ArrayList<Claim> claims = ClaimListSingleton.getClaimList().getClaims();
-		//claims.add(new Claim("tt","c",".",new Date()));
+		Collection<Claim> claimCollection = ClaimListSingleton.getClaimList().getClaims();
+		final ArrayList<Claim> claims = new ArrayList<Claim>(claimCollection);
 		final ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>(this, android.R.layout.simple_list_item_1 , claims);
 		claimView.setAdapter(claimAdapter);
 		
@@ -28,10 +29,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void update(){
 				claims.clear();
-				ArrayList<Claim> newClaims = ClaimListSingleton.getClaimList().getClaims();
-				for(Claim c : newClaims){
-					claims.add(c);
-				}
+				Collection<Claim> newClaims = ClaimListSingleton.getClaimList().getClaims();
+				claims.addAll(newClaims);
 				claimAdapter.notifyDataSetChanged();
 			}
 		});

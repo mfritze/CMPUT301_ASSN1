@@ -1,6 +1,7 @@
 package com.school.cmput301;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class ClaimList {
 	private ArrayList<Claim> claimList;
@@ -19,6 +20,13 @@ public class ClaimList {
 		}
 	}
 	
+	public int getIndex(Claim c){
+		if(!this.claimList.contains(c)){
+			return -1;
+		}
+		return this.claimList.indexOf(c);
+	}
+	
 	public void addListener(Listener l){
 		this.listeners.add(l);
 	}
@@ -31,7 +39,11 @@ public class ClaimList {
 		claimList.remove(c);
 	}
 	
-	public ArrayList<Claim> getClaims(){
+	public ArrayList<Claim> getClaimArrayList(){
+		return this.claimList;
+	}
+	
+	public Collection<Claim> getClaims(){
 		return this.claimList;
 	}
 	

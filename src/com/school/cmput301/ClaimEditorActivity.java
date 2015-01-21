@@ -1,5 +1,8 @@
 package com.school.cmput301;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +14,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 public class ClaimEditorActivity extends Activity {
 	private final String CLAIMINDEX = "com.school.cmput301.claimid";
+	private final String EXPENSEINDEX = "com.school.cmput301.expenseid";
 	Claim claim;
+	int claimIndex;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +32,29 @@ public class ClaimEditorActivity extends Activity {
 		setContentView(R.layout.claim_editor);
 		
 		Intent intent = getIntent();
-		claim = ClaimListSingleton.getClaimList().getClaims().get(intent.getIntExtra(CLAIMINDEX,0));
+		claimIndex = intent.getIntExtra(CLAIMINDEX, 0);
+		claim = ClaimListSingleton.getClaimList().getClaimArrayList().get(claimIndex);
 		
 		TextView title = (TextView) findViewById(R.id.claimTitle);
 		title.setText(claim.getName());
+		
+		ListView claimView = (ListView) findViewById(R.id.claimListView);
+		Collection<Expense> expenseCollection = claim.getExpenseList();
+		final ArrayList<Expense> expenses = new ArrayList<Expense>(expenseCollection);
+		final ArrayAdapter<Expense> expenseAdapter = new ArrayAdapter<Expense>(this, android.R.layout.simple_list_item_1 , expenses);
+		final int index = claimIndex;
+		claimView.setAdapter(expenseAdapter);
+		
+		ClaimListSingleton.getClaimList().addListener(new Listener(){
+			@Override
+			public void update(){
+				expenses.clear();
+				ArrayList<Claim> 
+				expenses.addAll(newClaims);
+				expenseAdapter.notifyDataSetChanged();
+			}
+		});
+	}
 	}
 
 	@Override
@@ -51,6 +77,7 @@ public class ClaimEditorActivity extends Activity {
 	}
 	
 	public void addExpense(View v){
-
+		Intent intent = new Intent(this, ExpenseCreator.class);
+		intent.putExtra(EXPENSEINDEX, claimIndex);
 	}
 }
