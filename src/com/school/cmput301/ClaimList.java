@@ -62,4 +62,8 @@ public class ClaimList {
 	public void editClaim(Claim c){
 		c.setStatus(EDITABLE);
 	}
+	
+	public Claim getClaimAtIndex(int i){
+		return this.claimList.get(i);
+	}
 }

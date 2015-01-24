@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="#dddddd">
 
     <EditText
         android:id="@+id/expenseName"
@@ -14,22 +15,18 @@
         <requestFocus />
     </EditText>
 
-    <EditText
-        android:id="@+id/expenseDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/date"
-        android:inputType="date" />
 	<LinearLayout
+	    android:id="@+id/currencyLayout"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:orientation="horizontal">
+	    android:layout_below="@+id/expenseDescription"
+	    android:orientation="horizontal" >
+
 	    <EditText
 	        android:id="@+id/expenseCost"
 	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.7"
+	        android:layout_height="match_parent"
+	        android:layout_weight="0.70"
 	        android:ems="10"
 	        android:hint="@string/cost"
 	        android:inputType="numberDecimal" />
@@ -40,23 +37,37 @@
 	        android:layout_height="wrap_content" 
 	        android:layout_weight="0.3"/>
 	</LinearLayout>
-
-    <EditText
-        android:id="@+id/expenseDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/description"
-        android:inputType="textMultiLine" />
 	<LinearLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:orientation="horizontal">
-	    <Button
-	        android:id="@+id/submitExpense"
-	        android:layout_width="0dp"
-	        android:layout_weight="0.5"
-	        android:layout_height="wrap_content"
-	        android:text="@string/submit" />
 	</LinearLayout>
-</LinearLayout>
+
+	<DatePicker
+	    android:id="@+id/expenseDate"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/currencyLayout"
+	    android:calendarViewShown="false" />
+
+	<Button
+	    android:id="@+id/submitExpense"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/expenseDate"
+	    android:text="@string/submit" />
+
+	<EditText
+	    android:id="@+id/expenseDescription"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/expenseName"
+	    android:ems="10"
+	    android:hint="@string/description"
+	    android:inputType="textMultiLine"
+	    android:maxLines="4" />
+
+</RelativeLayout>

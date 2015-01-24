@@ -15,7 +15,7 @@ public class ClaimTest extends TestCase {
 	public void testClaim(){
 		assertTrue("Claim is indeed empty" ,claim == null);
 		claim = new Claim("newClaim", "category", "desc", new Date());
-		Expense exp = new Expense(new Date(), "aa", "cc",(float) 23.93, Currency.getInstance("CAD"));
+		Expense exp = new Expense(new Date(), "aa", "cc",(float) 23.93, "CAD");
 		claim.addExpense(exp);
 		assertTrue("Claim is added", claim.getExpenseList().contains(exp));
 		claim.removeExpense(exp);

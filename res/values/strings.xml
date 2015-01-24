@@ -18,5 +18,6 @@
     <string name="claim_title">Claim Title</string>
     <string name="title_activity_claim_creator">ClaimCreatorActivity</string>
     <string name="title_activity_claim_editor">ClaimEditorActivity</string>
+    <string name="title_activity_expense_creator">ExpenseCreator</string>
 
 </resources>

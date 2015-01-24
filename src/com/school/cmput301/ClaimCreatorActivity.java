@@ -79,7 +79,7 @@ public class ClaimCreatorActivity extends Activity {
 			ClaimListSingleton.getClaimList().addClaim(claim);
 			
 			ClaimListSingleton.getClaimList().notifyListeners();
-			
+			int index = ClaimListSingleton.getClaimList().getIndex(claim);
 			intent.putExtra(CLAIMINDEX, ClaimListSingleton.getClaimList().getIndex(claim));
 			startActivity(intent);
 		}

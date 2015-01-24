@@ -19,6 +19,9 @@ public class Claim {
 	}
 	
 	public ArrayList<Expense> getExpenseList() {
+		if(expenseList == null){
+			expenseList = new ArrayList<Expense>();
+		}
 		return expenseList;
 	}
 

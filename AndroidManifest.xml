@@ -30,6 +30,10 @@
             android:name=".ClaimEditorActivity"
             android:label="@string/title_activity_claim_editor" >
         </activity>
+        <activity
+            android:name=".ExpenseCreator"
+            android:label="@string/title_activity_expense_creator" >
+        </activity>
     </application>
 
 </manifest>

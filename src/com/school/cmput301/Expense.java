@@ -12,7 +12,7 @@ public class Expense {
 	private ExpenseCost cost;
 	
 	public Expense(Date date, String category, String description,
-			float price, Currency currency){
+			float price, String currency){
 		this.date = date;
 		this.category = category;
 		this.description = description;
