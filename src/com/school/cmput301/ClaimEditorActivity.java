@@ -35,6 +35,7 @@ public class ClaimEditorActivity extends Activity {
 	private int claimIndex;
 	private Spinner spinView;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,15 +43,12 @@ public class ClaimEditorActivity extends Activity {
 		
 		Intent intent = getIntent();
 		claimIndex = intent.getIntExtra(CLAIMINDEX, 0);
-		claim = ClaimListSingleton.getClaimList().getClaimArrayList().get(claimIndex);
+		ArrayList<Claim> test = ClaimListSingleton.getClaimList().getClaimArrayList();
+		claim = test.get(claimIndex);
+		//claim = ClaimListSingleton.getClaimList().getClaimArrayList().get(claimIndex);
 		
 		TextView title = (TextView) findViewById(R.id.claimTitle);
 		title.setText(claim.getName());
-		
-		ArrayList<String> spinnerItems = ExpenseCost.getCurrencyList();
-		spinView = (Spinner) findViewById(R.id.currencySelector);
-		ArrayAdapter spinAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, spinnerItems);
-		spinView.setAdapter(spinAdapter);
 		
 		ListView expenseView = (ListView) findViewById(R.id.expenseList);
 		Collection<Expense> expenseCollection = claim.getExpenseList();
@@ -95,18 +93,22 @@ public class ClaimEditorActivity extends Activity {
         
 		LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View popupView = inflater.inflate(R.layout.create_expense, null);
-		final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+		final EditText categoryView = (EditText) popupView.findViewById(R.id.expenseName);
+		final EditText descView = (EditText) popupView.findViewById(R.id.expenseDescription);
+		final EditText costView = (EditText) popupView.findViewById(R.id.expenseCost);
+		final DatePicker dateView = (DatePicker) popupView.findViewById(R.id.expenseDate);
+		
+		ArrayList<String> spinnerItems = ExpenseCost.getCurrencyList();
+		spinView = (Spinner) popupView.findViewById(R.id.currencySelector);
+		ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, spinnerItems);
+		spinView.setAdapter(spinAdapter);
 		
 		Button submit = (Button) popupView.findViewById(R.id.submitExpense);
 		submit.setOnClickListener( new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				EditText categoryView = (EditText) findViewById(R.id.expenseName);
-				EditText descView = (EditText) findViewById(R.id.expenseDescription);
-				EditText costView = (EditText) findViewById(R.id.expenseCost);
-				DatePicker dateView = (DatePicker) findViewById(R.id.expenseDate);
-				
 				String category, description, dateString, currencyCode;
 				float cost = -1;
 				Date date = null;
@@ -135,10 +137,12 @@ public class ClaimEditorActivity extends Activity {
 						Toast.makeText(getBaseContext(), "Error reading date", Toast.LENGTH_SHORT).show();
 						e.printStackTrace();
 					} 	
+					Expense exp = new Expense(date, category, description,cost, currencyCode);
+					claim.addExpense(exp);
+					ClaimListSingleton.getClaimList().notifyListeners();
 				}
 
-				Expense exp = new Expense(date, category, description,cost, currencyCode);
-				claim.addExpense(exp);
+			
 				window.dismiss();
 			}
 		});

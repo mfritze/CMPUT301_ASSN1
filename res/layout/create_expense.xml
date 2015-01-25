@@ -12,7 +12,6 @@
         android:ems="10"
         android:hint="@string/category" >
 
-        <requestFocus />
     </EditText>
 
 	<LinearLayout
@@ -35,7 +34,9 @@
 	        android:id="@+id/currencySelector"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content" 
-	        android:layout_weight="0.3"/>
+	        android:layout_weight="0.3"
+	        android:spinnerMode="dialog"
+	        />
 	</LinearLayout>
 	<LinearLayout
 		    android:layout_width="match_parent"
@@ -51,14 +52,6 @@
 	    android:layout_below="@+id/currencyLayout"
 	    android:calendarViewShown="false" />
 
-	<Button
-	    android:id="@+id/submitExpense"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_below="@+id/expenseDate"
-	    android:text="@string/submit" />
-
 	<EditText
 	    android:id="@+id/expenseDescription"
 	    android:layout_width="match_parent"
@@ -69,5 +62,13 @@
 	    android:hint="@string/description"
 	    android:inputType="textMultiLine"
 	    android:maxLines="4" />
+
+	<Button
+	    android:id="@+id/submitExpense"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true"
+	    android:text="@string/submit" />
 
 </RelativeLayout>
