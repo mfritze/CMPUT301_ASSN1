@@ -51,7 +51,7 @@ public class Expense implements AdapterCompatible{
 
 	@Override
 	public String getDateText() {
-		return this.date.getDay() +"/"+ this.date.getMonth() + "/" + this.date.getYear();
+		return this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear() + 1900);
 	}
 
 	@Override

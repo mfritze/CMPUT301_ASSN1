@@ -99,9 +99,9 @@ public class Claim implements AdapterCompatible {
 
 	@Override
 	public String getDateText() {
-		String start = this.date.getDay() +"/"+ this.date.getMonth() + "/" + this.date.getYear();
-		String end = this.date.getDay() +"/"+ this.date.getMonth() + "/" + this.date.getYear(); 
-		return start + " to " + end;
+		String start = this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear()+ 1900);
+		String end = this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear() + 1900); 
+		return start + " - " + end;
 	}
 
 	@Override

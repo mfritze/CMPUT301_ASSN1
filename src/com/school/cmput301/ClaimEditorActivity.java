@@ -113,6 +113,7 @@ public class ClaimEditorActivity extends Activity {
         
 		LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View popupView = inflater.inflate(R.layout.create_expense, null);
+		
 		final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
 		final EditText categoryView = (EditText) popupView.findViewById(R.id.expenseName);
 		final EditText descView = (EditText) popupView.findViewById(R.id.expenseDescription);
