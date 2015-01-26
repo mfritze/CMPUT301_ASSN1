@@ -10,6 +10,7 @@ public class Claim implements AdapterCompatible {
 	private String name, category, description;
 	private ClaimStatus status;
 	private Date date;
+	private Date startDate, endDate; //TODO
 	private ArrayList<Expense> expenseList;
 	
 	public Claim(String name, String category,String description, Date date){
@@ -97,17 +98,16 @@ public class Claim implements AdapterCompatible {
 	}
 
 	@Override
-	public String getSecond() {
-		return category;
-	}
-
-	@Override
 	public String getDateText() {
-		return "TEMPORARY DATE";
+		String start = this.date.getDay() +"/"+ this.date.getMonth() + "/" + this.date.getYear();
+		String end = this.date.getDay() +"/"+ this.date.getMonth() + "/" + this.date.getYear(); 
+		return start + " to " + end;
 	}
 
 	@Override
 	public String getCostText() {
+		//float value = this.cost.getPrice();
+		//return Float.toString(value) + " " + this.cost.getCurrency();
 		return "TEMPORARY COST";
 	}
 	

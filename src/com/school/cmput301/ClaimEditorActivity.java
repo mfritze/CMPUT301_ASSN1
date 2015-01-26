@@ -55,7 +55,8 @@ public class ClaimEditorActivity extends Activity {
 		ListView expenseView = (ListView) findViewById(R.id.expenseList);
 		Collection<Expense> expenseCollection = claim.getExpenseList();
 		final ArrayList<Expense> expenses = new ArrayList<Expense>(expenseCollection);
-		final ArrayAdapter<Expense> expenseAdapter = new ArrayAdapter<Expense>(this, android.R.layout.simple_list_item_1 , expenses);
+		//final ArrayAdapter<Expense> expenseAdapter = new ArrayAdapter<Expense>(this, android.R.layout.simple_list_item_1 , expenses);
+		final ExpenseAdapter expenseAdapter = new ExpenseAdapter(this, R.layout.claim_adapter, expenses);
 		final int index = claimIndex;
 		final TextView currencyView = (TextView) findViewById(R.id.currencyText);
 		expenseView.setAdapter(expenseAdapter);

@@ -50,18 +50,14 @@ public class Expense implements AdapterCompatible{
 	}
 
 	@Override
-	public String getSecond() {
-		return "";
-	}
-
-	@Override
 	public String getDateText() {
-		return "TEMPORARY DATE";
+		return this.date.getDay() +"/"+ this.date.getMonth() + "/" + this.date.getYear();
 	}
 
 	@Override
 	public String getCostText() {
-		return "TEMPORARY COST";
+		float value = this.cost.getPrice();
+		return Float.toString(value) + " " + this.cost.getCurrency();
 	}
 	
 	

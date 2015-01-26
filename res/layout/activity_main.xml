@@ -13,6 +13,8 @@
         android:id="@+id/claimsCostText"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:textColor="#eeeeee"
+        android:background="#444444"
         />
     
 	<ListView

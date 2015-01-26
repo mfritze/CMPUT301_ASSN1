@@ -9,31 +9,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:text="@string/name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/titleText"
-        android:layout_alignBottom="@+id/titleText"
-        android:layout_toRightOf="@+id/titleText"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/secondaryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/titleText"
+        android:text="@string/date"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
         android:id="@+id/costText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/dateText"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:text="@string/cost"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
