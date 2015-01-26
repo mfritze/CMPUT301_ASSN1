@@ -4,9 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Currency;
 import java.util.Date;
-import java.util.Locale;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,7 +29,6 @@ import android.widget.Toast;
 
 public class ClaimEditorActivity extends Activity {
 	private final String CLAIMINDEX = "com.school.cmput301.claimid";
-	private final String EXPENSEINDEX = "com.school.cmput301.expenseid";
 	private Claim claim;
 	private int claimIndex;
 	private Spinner spinView;
@@ -50,12 +48,18 @@ public class ClaimEditorActivity extends Activity {
 		TextView title = (TextView) findViewById(R.id.claimTitle);
 		title.setText(claim.getName());
 		
+		addExpenseListeners();
+	}
+	
+	private void addExpenseListeners(){
 		ListView expenseView = (ListView) findViewById(R.id.expenseList);
 		Collection<Expense> expenseCollection = claim.getExpenseList();
 		final ArrayList<Expense> expenses = new ArrayList<Expense>(expenseCollection);
 		final ArrayAdapter<Expense> expenseAdapter = new ArrayAdapter<Expense>(this, android.R.layout.simple_list_item_1 , expenses);
 		final int index = claimIndex;
+		final TextView currencyView = (TextView) findViewById(R.id.currencyText);
 		expenseView.setAdapter(expenseAdapter);
+		
 		
 		ClaimListSingleton.getClaimList().addListener(new Listener(){
 			@Override
@@ -68,6 +72,21 @@ public class ClaimEditorActivity extends Activity {
 				expenseAdapter.notifyDataSetChanged();
 			}
 		});
+		
+		ClaimListSingleton.getClaimList().addListener(new Listener(){
+
+			@Override
+			public void update() {
+				HashMap<String,Float> currencies = claim.getCurrencies();
+				String costListing = "Total Cost:\n";
+				for(String key: currencies.keySet()){
+					costListing += Float.toString(currencies.get(key)) + " "+ key + "\n";
+				}
+				currencyView.setText(costListing);
+			}
+			
+		});
+		
 	}
 
 	@Override

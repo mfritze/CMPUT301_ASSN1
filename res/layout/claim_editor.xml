@@ -11,20 +11,19 @@
 	    android:background="#aaaaaa"
 	    android:text="@string/claim_title"
 	    android:textAppearance="?android:attr/textAppearanceLarge" />
-    <LinearLayout
-        android:id="@+id/currencyList"
+   	<TextView
+        android:id="@+id/currencyText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/claimTitle"
-        android:orientation="vertical" >
+       />
 
-    </LinearLayout>
 
     <ListView
         android:id="@+id/expenseList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:layout_below="@+id/currencyList"
+        android:layout_below="@+id/currencyText"
         android:layout_above="@+id/addExpense"
         >
 

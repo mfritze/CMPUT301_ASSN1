@@ -6,7 +6,7 @@ import java.util.Date;
 
 //Currency infor http://stackoverflow.com/questions/3888991/currency-code-to-currency-symbol-mapping
 // jan 17 2015
-public class Expense {
+public class Expense implements AdapterCompatible{
 	private Date date;
 	private String category, description;
 	private ExpenseCost cost;
@@ -42,6 +42,26 @@ public class Expense {
 	}
 	public void setCost(ExpenseCost cost) {
 		this.cost = cost;
+	}
+
+	@Override
+	public String getTitle() {
+		return this.category;
+	}
+
+	@Override
+	public String getSecond() {
+		return "";
+	}
+
+	@Override
+	public String getDateText() {
+		return "TEMPORARY DATE";
+	}
+
+	@Override
+	public String getCostText() {
+		return "TEMPORARY COST";
 	}
 	
 	

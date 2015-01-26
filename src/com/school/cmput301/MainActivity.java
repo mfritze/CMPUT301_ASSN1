@@ -2,15 +2,17 @@ package com.school.cmput301;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.ClipData.Item;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	
@@ -22,7 +24,8 @@ public class MainActivity extends Activity {
 		ListView claimView = (ListView) findViewById(R.id.claimListView);
 		Collection<Claim> claimCollection = ClaimListSingleton.getClaimList().getClaims();
 		final ArrayList<Claim> claims = new ArrayList<Claim>(claimCollection);
-		final ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>(this, android.R.layout.simple_list_item_1 , claims);
+		//final ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>(this, android.R.layout.simple_list_item_1 , claims);
+		final ClaimAdapter claimAdapter = new ClaimAdapter(this, R.layout.claim_adapter, claims);
 		claimView.setAdapter(claimAdapter);
 		
 		ClaimListSingleton.getClaimList().addListener(new Listener(){
@@ -33,6 +36,22 @@ public class MainActivity extends Activity {
 				claims.addAll(newClaims);
 				claimAdapter.notifyDataSetChanged();
 			}
+		});
+		
+		ClaimListSingleton.getClaimList().addListener(new Listener(){
+
+			@Override
+			public void update() {
+				String costText = "Total Costs: \n";
+				TextView costView = (TextView) findViewById(R.id.claimsCostText);
+				HashMap<String, Float> currencies = ClaimListSingleton.getCurrencies();
+				
+				for(String key: currencies.keySet()){
+					costText += Float.toString(currencies.get(key)) + " "+ key + "\n";
+				}
+				costView.setText(costText);
+				
+			}			
 		});
 	}
 
