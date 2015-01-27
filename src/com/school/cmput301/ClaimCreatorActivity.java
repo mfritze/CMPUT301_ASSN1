@@ -83,10 +83,11 @@ public class ClaimCreatorActivity extends Activity {
 		EditText nameView = (EditText) findViewById(R.id.claimNameEditText);
 		EditText categoryView = (EditText) findViewById(R.id.claimCategoryEditText);
 		EditText descriptionView = (EditText) findViewById(R.id.claimDescriptionEditText);
-		DatePicker dateView = (DatePicker) findViewById(R.id.claimDatePicker);
-		String name,category,description, dateString;
+		DatePicker dateStartView = (DatePicker) findViewById(R.id.claimStartDatePicker);
+		DatePicker dateEndView = (DatePicker) findViewById(R.id.claimEndDatePicker);
+		String name,category,description, startDateString, endDateString;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); //http://stackoverflow.com/questions/17674308/date-from-edittext Jan 18 2015
-		Date date = null;
+		Date startDate = null, endDate = null;
 		Claim claim;
 		
 		//dateString = dateView.getText().toString();
@@ -100,16 +101,19 @@ public class ClaimCreatorActivity extends Activity {
 		}else{
 		
 			try {
-				int month = dateView.getMonth(), day = dateView.getDayOfMonth(), year = dateView.getYear();
-				dateString = String.format("%d-%d-%d", day,month, year);
-				date = dateFormat.parse(dateString);
+				int smonth = dateStartView.getMonth(), sday = dateStartView.getDayOfMonth(), syear = dateStartView.getYear();
+				int emonth = dateEndView.getMonth(), eday = dateEndView.getDayOfMonth(), eyear = dateEndView.getYear();
+				startDateString = String.format("%d-%d-%d", sday,smonth, syear);
+				endDateString = String.format("%d-%d-%d", eday,emonth, eyear);
+				startDate = dateFormat.parse(startDateString);
+				endDate = dateFormat.parse(endDateString);
 				//date = dateFormat.parse(dateString);
 			} catch (ParseException e) {
 				Toast.makeText(this, "Error reading date", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} 
 			
-			claim = new Claim(name, category, description, date);
+			claim = new Claim(name, category, description, startDate, endDate);
 			ClaimListSingleton.getClaimList().addClaim(claim);
 			
 			ClaimListSingleton.getClaimList().notifyListeners();

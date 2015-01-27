@@ -19,5 +19,7 @@
     <string name="title_activity_claim_creator">ClaimCreatorActivity</string>
     <string name="title_activity_claim_editor">ClaimEditorActivity</string>
     <string name="title_activity_expense_creator">ExpenseCreator</string>
+    <string name="start">Start Date</string>
+    <string name="end">End Date</string>
 
 </resources>

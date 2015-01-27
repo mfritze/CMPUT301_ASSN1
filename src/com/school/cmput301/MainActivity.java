@@ -56,22 +56,6 @@ public class MainActivity extends Activity {
 				claimAdapter.notifyDataSetChanged();
 			}
 		});
-		
-		ClaimListSingleton.getClaimList().addListener(new Listener(){
-
-			@Override
-			public void update() {
-				String costText = "Total Costs: \n";
-				TextView costView = (TextView) findViewById(R.id.claimsCostText);
-				HashMap<String, Float> currencies = ClaimListSingleton.getCurrencies();
-				
-				for(String key: currencies.keySet()){
-					costText += "\n" + Float.toString(currencies.get(key)) + " "+ key;
-				}
-				costView.setText(costText);
-				
-			}			
-		});
 	}
 	
 	private void setActionBar(){

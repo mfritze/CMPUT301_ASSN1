@@ -59,8 +59,6 @@ public class ClaimEditorActivity extends Activity {
 		setActionBar();
 	}
 
-
-
 	private void setActionBar(){
 		//Based on http://stackoverflow.com/questions/6746665/accessing-a-font-under-assets-folder-from-xml-file-in-android Jan 25 2015
 		final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.actionbar_layout, null);
@@ -117,7 +115,7 @@ public class ClaimEditorActivity extends Activity {
 			@Override
 			public void update() {
 				HashMap<String,Float> currencies = claim.getCurrencies();
-				String costListing = "Total Cost:\n";
+				String costListing = "Total Cost:";
 				for(String key: currencies.keySet()){
 					costListing += "\n" + Float.toString(currencies.get(key)) + " "+ key;
 				}
@@ -152,7 +150,7 @@ public class ClaimEditorActivity extends Activity {
 		LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View popupView = inflater.inflate(R.layout.create_expense, null);
 		
-		final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+		final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 		final EditText categoryView = (EditText) popupView.findViewById(R.id.expenseName);
 		final EditText descView = (EditText) popupView.findViewById(R.id.expenseDescription);
 		final EditText costView = (EditText) popupView.findViewById(R.id.expenseCost);

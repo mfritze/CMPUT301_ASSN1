@@ -25,7 +25,6 @@
         android:id="@+id/costText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/dateText"
         android:layout_alignParentRight="true"
         android:text="@string/cost"
         android:textAppearance="?android:attr/textAppearanceSmall" />

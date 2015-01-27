@@ -7,15 +7,15 @@ import java.util.HashMap;
 public class Claim implements AdapterCompatible {
 	private String name, category, description;
 	private ClaimStatus status;
-	private Date date;
 	private Date startDate, endDate; //TODO
 	private ArrayList<Expense> expenseList;
 	
-	public Claim(String name, String category,String description, Date date){
+	public Claim(String name, String category,String description, Date startDate, Date endDate){
 		this.name = name;
 		this.category = category;
 		this.description = description;
-		this.date = date;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.status = new ClaimStatus();
 		this.expenseList = new ArrayList<Expense>();
 	}
@@ -83,11 +83,20 @@ public class Claim implements AdapterCompatible {
 	public void setStatus(int status) {
 		this.status.setStatus(status);
 	}
-	public Date getDate() {
-		return date;
+	public Date getStartDate() {
+		return startDate;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	@Override
@@ -97,8 +106,8 @@ public class Claim implements AdapterCompatible {
 
 	@Override
 	public String getDateText() {
-		String start = this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear()+ 1901);
-		String end = this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear() + 1901); 
+		String start = this.startDate.getDay() +"/"+ this.startDate.getMonth() + "/" + (this.startDate.getYear()+ 1901);
+		String end = this.endDate.getDay() +"/"+ this.endDate.getMonth() + "/" + (this.endDate.getYear() + 1901); 
 		return start + " - " + end;
 	}
 
