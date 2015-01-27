@@ -7,20 +7,24 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -43,12 +47,46 @@ public class ClaimEditorActivity extends Activity {
 		claimIndex = intent.getIntExtra(CLAIMINDEX, 0);
 		ArrayList<Claim> test = ClaimListSingleton.getClaimList().getClaimArrayList();
 		claim = test.get(claimIndex);
-		//claim = ClaimListSingleton.getClaimList().getClaimArrayList().get(claimIndex);
-		
-		TextView title = (TextView) findViewById(R.id.claimTitle);
-		title.setText(claim.getName());
-		
+	}
+	
+	
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+
 		addExpenseListeners();
+		setActionBar();
+	}
+
+
+
+	private void setActionBar(){
+		//Based on http://stackoverflow.com/questions/6746665/accessing-a-font-under-assets-folder-from-xml-file-in-android Jan 25 2015
+		final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.actionbar_layout, null);
+		
+		final ActionBar actionBar = getActionBar();
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setCustomView(actionBarLayout);
+		
+		
+		//Based on http://stackoverflow.com/questions/6746665/accessing-a-font-under-assets-folder-from-xml-file-in-android Jan 25 2015
+		TextView menuTitle = (TextView) findViewById(R.id.menuTitle);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "Roboto/Roboto-Light.ttf");
+		menuTitle.setTypeface(tf);
+		menuTitle.setText(claim.getName());
+		
+		ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+		homeButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getBaseContext(), MainActivity.class);
+				startActivity(intent);
+			}
+		});
 	}
 	
 	private void addExpenseListeners(){
@@ -81,7 +119,7 @@ public class ClaimEditorActivity extends Activity {
 				HashMap<String,Float> currencies = claim.getCurrencies();
 				String costListing = "Total Cost:\n";
 				for(String key: currencies.keySet()){
-					costListing += Float.toString(currencies.get(key)) + " "+ key + "\n";
+					costListing += "\n" + Float.toString(currencies.get(key)) + " "+ key;
 				}
 				currencyView.setText(costListing);
 			}
@@ -120,7 +158,8 @@ public class ClaimEditorActivity extends Activity {
 		final EditText costView = (EditText) popupView.findViewById(R.id.expenseCost);
 		final DatePicker dateView = (DatePicker) popupView.findViewById(R.id.expenseDate);
 		
-		ArrayList<String> spinnerItems = ExpenseCost.getCurrencyList();
+		//ArrayList<String> spinnerItems = ExpenseCost.getCurrencyList();
+		String[] spinnerItems = {"CAD", "USD", "EUR", "GBP"};
 		spinView = (Spinner) popupView.findViewById(R.id.currencySelector);
 		ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, spinnerItems);
 		spinView.setAdapter(spinAdapter);

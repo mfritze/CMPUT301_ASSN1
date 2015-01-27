@@ -1,6 +1,5 @@
 package com.school.cmput301;
 
-import java.util.Currency;
 import java.util.Date;
 
 
@@ -51,7 +50,7 @@ public class Expense implements AdapterCompatible{
 
 	@Override
 	public String getDateText() {
-		return this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear() + 1900);
+		return this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear() + 1901);
 	}
 
 	@Override

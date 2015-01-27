@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import android.renderscript.Sampler.Value;
-
 public class Claim implements AdapterCompatible {
 	private String name, category, description;
 	private ClaimStatus status;
@@ -99,16 +97,20 @@ public class Claim implements AdapterCompatible {
 
 	@Override
 	public String getDateText() {
-		String start = this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear()+ 1900);
-		String end = this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear() + 1900); 
+		String start = this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear()+ 1901);
+		String end = this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear() + 1901); 
 		return start + " - " + end;
 	}
 
 	@Override
 	public String getCostText() {
-		//float value = this.cost.getPrice();
-		//return Float.toString(value) + " " + this.cost.getCurrency();
-		return "TEMPORARY COST";
+		String costText = "";
+		HashMap<String, Float> currencies = ClaimListSingleton.getCurrencies();
+		
+		for(String key: currencies.keySet()){
+			costText += Float.toString(currencies.get(key)) + " "+ key + "\n";
+		}
+		return costText;
 	}
 	
 	

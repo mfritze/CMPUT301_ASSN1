@@ -3,7 +3,6 @@ package com.school.cmput301;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.ClipData.Item;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ public class ClaimAdapter extends ArrayAdapter{
 	// and http://www.ezzylearning.com/tutorial/customizing-android-listview-items-with-custom-arrayadapter Jan 25 2015
 	ArrayList<Claim> claims;
 	public ClaimAdapter(Context context, int textViewResourceId, List<Claim> claims) {
-		super(context, textViewResourceId,(List<Claim>) claims);
+		super(context, textViewResourceId,claims);
 		this.claims = (ArrayList<Claim>) claims;
 	}
 

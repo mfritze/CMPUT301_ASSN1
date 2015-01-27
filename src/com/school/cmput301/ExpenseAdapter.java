@@ -14,7 +14,7 @@ public class ExpenseAdapter extends ArrayAdapter{
 	//based on http://stackoverflow.com/questions/8166497/custom-adapter-for-list-view Jan 24th 2015
 	ArrayList<Expense> expenses;
 	public ExpenseAdapter(Context context, int textViewResourceId, List<Expense> expenses) {
-		super(context, textViewResourceId,(List<Expense>) expenses);
+		super(context, textViewResourceId,expenses);
 		this.expenses = (ArrayList<Expense>) expenses;
 	}
 

@@ -1,10 +1,8 @@
-import java.util.Currency;
 import java.util.Date;
 
 import junit.framework.TestCase;
 
 import com.school.cmput301.Claim;
-import com.school.cmput301.ClaimStatus;
 import com.school.cmput301.Expense;
 
 

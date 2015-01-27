@@ -25,40 +25,42 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080019;
-        public static final int addExpense=0x7f080009;
-        public static final int approveClaim=0x7f080017;
-        public static final int claimCategoryEditText=0x7f08000c;
-        public static final int claimDatePicker=0x7f08000e;
-        public static final int claimDescriptionEditText=0x7f08000d;
-        public static final int claimListView=0x7f080001;
-        public static final int claimNameEditText=0x7f08000b;
-        public static final int claimTitle=0x7f080006;
-        public static final int claimsCostText=0x7f080000;
-        public static final int costText=0x7f080005;
-        public static final int createClaimButton=0x7f080002;
-        public static final int currencyLayout=0x7f080010;
-        public static final int currencySelector=0x7f080013;
-        public static final int currencyText=0x7f080007;
-        public static final int dateText=0x7f080004;
-        public static final int editClaimButton=0x7f080018;
-        public static final int emailClaim=0x7f080016;
-        public static final int expenseCost=0x7f080012;
-        public static final int expenseDate=0x7f080014;
-        public static final int expenseDescription=0x7f080011;
-        public static final int expenseList=0x7f080008;
-        public static final int expenseName=0x7f08000f;
+        public static final int action_settings=0x7f08001a;
+        public static final int addExpense=0x7f08000a;
+        public static final int approvedClaim=0x7f080018;
+        public static final int claimCategoryEditText=0x7f08000d;
+        public static final int claimDatePicker=0x7f08000f;
+        public static final int claimDescriptionEditText=0x7f08000e;
+        public static final int claimListView=0x7f080003;
+        public static final int claimNameEditText=0x7f08000c;
+        public static final int claimsCostText=0x7f080002;
+        public static final int costText=0x7f080007;
+        public static final int createClaimButton=0x7f080004;
+        public static final int currencyLayout=0x7f080011;
+        public static final int currencySelector=0x7f080014;
+        public static final int currencyText=0x7f080008;
+        public static final int dateText=0x7f080006;
+        public static final int deleteClaim=0x7f080019;
+        public static final int expenseCost=0x7f080013;
+        public static final int expenseDate=0x7f080016;
+        public static final int expenseDescription=0x7f080012;
+        public static final int expenseList=0x7f080009;
+        public static final int expenseName=0x7f080010;
+        public static final int homeButton=0x7f080000;
+        public static final int menuTitle=0x7f080001;
+        public static final int sendClaim=0x7f080017;
         public static final int submitExpense=0x7f080015;
-        public static final int submitNewClaim=0x7f08000a;
-        public static final int titleText=0x7f080003;
+        public static final int submitNewClaim=0x7f08000b;
+        public static final int titleText=0x7f080005;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int claim_adapter=0x7f030001;
-        public static final int claim_editor=0x7f030002;
-        public static final int create_claim=0x7f030003;
-        public static final int create_expense=0x7f030004;
-        public static final int edit_claim_popup=0x7f030005;
+        public static final int actionbar_layout=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int claim_adapter=0x7f030002;
+        public static final int claim_editor=0x7f030003;
+        public static final int create_claim=0x7f030004;
+        public static final int create_expense=0x7f030005;
+        public static final int edit_claim_popup=0x7f030006;
     }
     public static final class menu {
         public static final int claim_creator=0x7f070000;

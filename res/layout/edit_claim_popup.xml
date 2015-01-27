@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-	<LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal">
-	    <Button
-	        android:id="@+id/emailClaim"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.5"
-	        android:text="EMAIL" />
-	
-	    <Button
-	        android:id="@+id/approveClaim"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.5"
-	        android:text="APPROVE" />
-	</LinearLayout>
-    <Button
-        android:id="@+id/editClaimButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/edit_claim"
-        />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#555555" >
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/sendClaim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_dialog_email" />
+
+    <ImageButton
+        android:id="@+id/approvedClaim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/sendClaim"
+        android:src="@android:drawable/ic_menu_myplaces" />
+
+    <ImageButton
+        android:id="@+id/deleteClaim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/approvedClaim"
+        android:src="@android:drawable/ic_menu_delete" />
+
+</RelativeLayout>
