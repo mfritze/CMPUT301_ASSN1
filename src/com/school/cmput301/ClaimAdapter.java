@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ClaimAdapter extends ArrayAdapter{
@@ -36,11 +38,20 @@ public class ClaimAdapter extends ArrayAdapter{
 			//TextView secondView = (TextView) view.findViewById(R.id.secondaryText);
 			TextView dateView = (TextView) view.findViewById(R.id.dateText);
 			TextView costView = (TextView) view.findViewById(R.id.costText);
+			ImageView statusView = (ImageView) view.findViewById(R.id.statusImage);
 			
 			titleView.setText(claim.getTitle());
-			//secondView.setText(claim.getSecond());
 			dateView.setText(claim.getDateText());
 			costView.setText(claim.getCostText());
+			
+			int status = claim.getStatus();
+			if(status == 0){
+				statusView.setImageResource(android.R.drawable.ic_menu_edit);
+			}else if(status == 1){
+				statusView.setImageResource(android.R.drawable.ic_dialog_email);
+			}else{
+				statusView.setImageResource(android.R.drawable.ic_menu_myplaces);
+			}
 		}
 		
 		return view;

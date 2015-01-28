@@ -77,8 +77,8 @@ public class Claim implements AdapterCompatible {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public ClaimStatus getStatus() {
-		return status;
+	public int getStatus() {
+		return status.getStatus();
 	}
 	public void setStatus(int status) {
 		this.status.setStatus(status);
@@ -106,20 +106,19 @@ public class Claim implements AdapterCompatible {
 
 	@Override
 	public String getDateText() {
-		String start = this.startDate.getDay() +"/"+ this.startDate.getMonth() + "/" + (this.startDate.getYear()+ 1901);
-		String end = this.endDate.getDay() +"/"+ this.endDate.getMonth() + "/" + (this.endDate.getYear() + 1901); 
+		String start = this.startDate.getDay() +"/"+ this.startDate.getMonth() + "/" + (this.startDate.getYear()+ 1900);
+		String end = this.endDate.getDay() +"/"+ this.endDate.getMonth() + "/" + (this.endDate.getYear() + 1900); 
 		return start + " - " + end;
 	}
 
 	@Override
 	public String getCostText() {
-		String costText = "";
-		HashMap<String, Float> currencies = ClaimListSingleton.getCurrencies();
-		
+		HashMap<String,Float> currencies = this.getCurrencies();
+		String costListing = " ";
 		for(String key: currencies.keySet()){
-			costText += Float.toString(currencies.get(key)) + " "+ key + "\n";
+			costListing += Float.toString(currencies.get(key)) + " "+ key + "\n";
 		}
-		return costText;
+		return costListing.substring(0, costListing.length() - 1);
 	}
 	
 	

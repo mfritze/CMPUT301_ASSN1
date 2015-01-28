@@ -28,7 +28,7 @@ public class ClaimCreatorActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_claim);
-		
+		setFonts();
 		setActionBar();
 	}
 
@@ -50,6 +50,15 @@ public class ClaimCreatorActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	private void setFonts(){
+		TextView startDate = (TextView) findViewById(R.id.startDate);
+		TextView endDate = (TextView) findViewById(R.id.endDate);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "Roboto/Roboto-Medium.ttf");
+		startDate.setTypeface(tf);
+		endDate.setTypeface(tf);
+	}
+	
 	private void setActionBar(){
 		//Based on http://stackoverflow.com/questions/6746665/accessing-a-font-under-assets-folder-from-xml-file-in-android Jan 25 2015
 		final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.actionbar_layout, null);

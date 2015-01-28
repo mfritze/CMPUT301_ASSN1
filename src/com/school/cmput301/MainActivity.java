@@ -21,17 +21,13 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
-
-		
+		setContentView(R.layout.activity_main);	
 	}
 	
 	
 	
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		addExpenseListeners();
 		setActionBar();
@@ -45,6 +41,9 @@ public class MainActivity extends Activity {
 		final ArrayList<Claim> claims = new ArrayList<Claim>(claimCollection);
 		//final ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>(this, android.R.layout.simple_list_item_1 , claims);
 		final ClaimAdapter claimAdapter = new ClaimAdapter(this, R.layout.claim_adapter, claims);
+		
+		//claimAdapter.sort(comparator) TODO
+		
 		claimView.setAdapter(claimAdapter);
 		
 		ClaimListSingleton.getClaimList().addListener(new Listener(){
