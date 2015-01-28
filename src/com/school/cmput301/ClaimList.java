@@ -55,7 +55,7 @@ public class ClaimList {
 		c.setStatus(SENT);
 	}
 	
-	public void closeClaim(Claim c){
+	public void approveClaim(Claim c){
 		c.setStatus(CLOSED);
 	}
 	
@@ -65,5 +65,9 @@ public class ClaimList {
 	
 	public Claim getClaimAtIndex(int i){
 		return this.claimList.get(i);
+	}
+	
+	public void removeClaimAtIndex(int i ){
+		this.claimList.remove(i);
 	}
 }

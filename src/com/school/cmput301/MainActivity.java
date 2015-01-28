@@ -31,20 +31,14 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);	
-	}
-	
-	@Override
-	protected void onStart() {
-		super.onStart();
 		addExpenseListeners();
 		setActionBar();
 	}
-
+	
 	private void addExpenseListeners(){
-		ListView claimView = (ListView) findViewById(R.id.claimListView);
+		final ListView claimView = (ListView) findViewById(R.id.claimListView);
 		Collection<Claim> claimCollection = ClaimListSingleton.getClaimList().getClaims();
 		final ArrayList<Claim> claims = new ArrayList<Claim>(claimCollection);
-		//final ArrayAdapter<Claim> claimAdapter = new ArrayAdapter<Claim>(this, android.R.layout.simple_list_item_1 , claims);
 		final ClaimAdapter claimAdapter = new ClaimAdapter(this, R.layout.claim_adapter, claims);
 		
 		//claimAdapter.sort(comparator) TODO
@@ -69,46 +63,49 @@ public class MainActivity extends Activity {
 				Toast.makeText(getBaseContext(),"On Click!", Toast.LENGTH_SHORT).show();
 
 			}
-			
 		});
 		
 		claimView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View view,
 					int position, long id) {
-				Toast.makeText(getBaseContext(),"Long click!", Toast.LENGTH_SHORT).show();
 				LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				View popupView = inflater.inflate(R.layout.edit_claim_popup, null);
 
-				PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+				final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 				
 				ImageButton deleteClaim = (ImageButton) popupView.findViewById(R.id.deleteClaim);
 				ImageButton sendClaim = (ImageButton) popupView.findViewById(R.id.sendClaim);
 				ImageButton approveClaim = (ImageButton) popupView.findViewById(R.id.approvedClaim);
 				
+				final int claimPosition = position;
+				
 				deleteClaim.setOnClickListener(new View.OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getBaseContext(), "delete", Toast.LENGTH_SHORT).show();
+						ClaimListSingleton.getClaimList().removeClaimAtIndex(claimPosition);
+						//ClaimListSingleton.getClaimList().notifyListeners();
+						window.dismiss();
 					}
 				});
 				
 				sendClaim.setOnClickListener(new View.OnClickListener() {
-					
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getBaseContext(), "send", Toast.LENGTH_SHORT).show();
-						
+						//TODO open email client
+						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
+						ClaimListSingleton.getClaimList().submitClaim(c);
+						window.dismiss();
 					}
 				});
 				
 				approveClaim.setOnClickListener(new View.OnClickListener() {
-					
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getBaseContext(), "Approve", Toast.LENGTH_SHORT).show();						
+						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
+						ClaimListSingleton.getClaimList().approveClaim(c);
+						window.dismiss();
 					}
 				});
 				
@@ -139,7 +136,6 @@ public class MainActivity extends Activity {
 		menuTitle.setTypeface(tf);
 	}
 	
-
 	@Override
  	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

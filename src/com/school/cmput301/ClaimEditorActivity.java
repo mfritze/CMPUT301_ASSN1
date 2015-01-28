@@ -47,17 +47,11 @@ public class ClaimEditorActivity extends Activity {
 		claimIndex = intent.getIntExtra(CLAIMINDEX, 0);
 		ArrayList<Claim> test = ClaimListSingleton.getClaimList().getClaimArrayList();
 		claim = test.get(claimIndex);
-	}
-	
-	
-	
-	@Override
-	protected void onStart() {
-		super.onStart();
-
+		
 		addExpenseListeners();
 		setActionBar();
 	}
+	
 
 	private void setActionBar(){
 		//Based on http://stackoverflow.com/questions/6746665/accessing-a-font-under-assets-folder-from-xml-file-in-android Jan 25 2015
