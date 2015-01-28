@@ -2,19 +2,28 @@ package com.school.cmput301;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
@@ -24,16 +33,12 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);	
 	}
 	
-	
-	
 	@Override
 	protected void onStart() {
 		super.onStart();
 		addExpenseListeners();
 		setActionBar();
 	}
-
-
 
 	private void addExpenseListeners(){
 		ListView claimView = (ListView) findViewById(R.id.claimListView);
@@ -54,6 +59,66 @@ public class MainActivity extends Activity {
 				claims.addAll(newClaims);
 				claimAdapter.notifyDataSetChanged();
 			}
+		});
+	
+		claimView.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View view, int position,
+					long id) {
+				Toast.makeText(getBaseContext(),"On Click!", Toast.LENGTH_SHORT).show();
+
+			}
+			
+		});
+		
+		claimView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View view,
+					int position, long id) {
+				Toast.makeText(getBaseContext(),"Long click!", Toast.LENGTH_SHORT).show();
+				LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				View popupView = inflater.inflate(R.layout.edit_claim_popup, null);
+
+				PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+				
+				ImageButton deleteClaim = (ImageButton) popupView.findViewById(R.id.deleteClaim);
+				ImageButton sendClaim = (ImageButton) popupView.findViewById(R.id.sendClaim);
+				ImageButton approveClaim = (ImageButton) popupView.findViewById(R.id.approvedClaim);
+				
+				deleteClaim.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(getBaseContext(), "delete", Toast.LENGTH_SHORT).show();
+					}
+				});
+				
+				sendClaim.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(getBaseContext(), "send", Toast.LENGTH_SHORT).show();
+						
+					}
+				});
+				
+				approveClaim.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(getBaseContext(), "Approve", Toast.LENGTH_SHORT).show();						
+					}
+				});
+				
+				//TODO make background darker
+				window.setBackgroundDrawable(new BitmapDrawable());
+		        window.setOutsideTouchable(true);
+				window.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+				return false;
+			}
+		
 		});
 	}
 	

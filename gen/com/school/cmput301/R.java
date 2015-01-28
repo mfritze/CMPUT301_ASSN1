@@ -64,6 +64,7 @@ public final class R {
         public static final int create_claim=0x7f030004;
         public static final int create_expense=0x7f030005;
         public static final int edit_claim_popup=0x7f030006;
+        public static final int expense_adapter=0x7f030007;
     }
     public static final class menu {
         public static final int claim_creator=0x7f070000;
