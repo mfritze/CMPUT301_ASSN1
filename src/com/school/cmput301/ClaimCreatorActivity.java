@@ -95,8 +95,8 @@ public class ClaimCreatorActivity extends Activity {
 		DatePicker dateStartView = (DatePicker) findViewById(R.id.claimStartDatePicker);
 		DatePicker dateEndView = (DatePicker) findViewById(R.id.claimEndDatePicker);
 		String name,category,description, startDateString, endDateString;
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); //http://stackoverflow.com/questions/17674308/date-from-edittext Jan 18 2015
-		Date startDate = null, endDate = null;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //http://stackoverflow.com/questions/17674308/date-from-edittext Jan 18 2015
+		Date startDate = null;
 		Claim claim;
 		
 		//dateString = dateView.getText().toString();
@@ -110,25 +110,27 @@ public class ClaimCreatorActivity extends Activity {
 		}else{
 		
 			try {
-				int smonth = dateStartView.getMonth(), sday = dateStartView.getDayOfMonth(), syear = dateStartView.getYear();
-				int emonth = dateEndView.getMonth(), eday = dateEndView.getDayOfMonth(), eyear = dateEndView.getYear();
-				startDateString = String.format("%d-%d-%d", sday,smonth, syear);
-				endDateString = String.format("%d-%d-%d", eday,emonth, eyear);
+				//Month is the only one indexed from 0
+				int smonth = dateStartView.getMonth() + 1, sday = dateStartView.getDayOfMonth(), syear = dateStartView.getYear();
+				int emonth = dateEndView.getMonth() + 1, eday = dateEndView.getDayOfMonth(), eyear = dateEndView.getYear();
+				startDateString = String.format("%d/%d/%d", sday,smonth, syear);
+				endDateString = String.format("%d/%d/%d", eday,emonth, eyear);
 				startDate = dateFormat.parse(startDateString);
-				endDate = dateFormat.parse(endDateString);
+				//endDate = dateFormat.parse(endDateString);
 				//date = dateFormat.parse(dateString);
+				
+				claim = new Claim(name, category, description, startDateString, endDateString, startDate);
+				ClaimListSingleton.getClaimList().addClaim(claim);
+				ClaimListSingleton.sortClaimList();
+				ClaimListSingleton.getClaimList().notifyListeners();
+				int index = ClaimListSingleton.getClaimList().getIndex(claim);
+				intent.putExtra(CLAIMINDEX, index);
+				startActivity(intent);
 			} catch (ParseException e) {
 				Toast.makeText(this, "Error reading date", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} 
 			
-			claim = new Claim(name, category, description, startDate, endDate);
-			ClaimListSingleton.getClaimList().addClaim(claim);
-			
-			ClaimListSingleton.getClaimList().notifyListeners();
-			int index = ClaimListSingleton.getClaimList().getIndex(claim);
-			intent.putExtra(CLAIMINDEX, index);
-			startActivity(intent);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.school.cmput301;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class ClaimListSingleton {
@@ -34,6 +35,10 @@ public class ClaimListSingleton {
 			}
 		}
 		return currencies;
+	}
+	
+	static public void sortClaimList(){
+		Collections.sort(getClaimList().getClaimArrayList(), new DateComarator());
 	}
 
 }
