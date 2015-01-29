@@ -31,6 +31,10 @@ public class ClaimList {
 		this.listeners.add(l);
 	}
 	
+	public void removeListener(int i){
+		this.listeners.remove(i);
+	}
+	
 	public void addClaim(Claim c){
 		claimList.add(c);
 	}
@@ -64,6 +68,9 @@ public class ClaimList {
 	}
 	
 	public Claim getClaimAtIndex(int i){
+		if(this.claimList.isEmpty() || (this.claimList.size() <= i) || (i < 0)){
+			return null;
+		}
 		return this.claimList.get(i);
 	}
 	

@@ -114,9 +114,12 @@ public class Claim implements AdapterCompatible {
 	@Override
 	public String getCostText() {
 		HashMap<String,Float> currencies = this.getCurrencies();
-		String costListing = " ";
+		String costListing = "";
 		for(String key: currencies.keySet()){
 			costListing += Float.toString(currencies.get(key)) + " "+ key + "\n";
+		}
+		if(costListing.length() == 0){
+			return "";
 		}
 		return costListing.substring(0, costListing.length() - 1);
 	}

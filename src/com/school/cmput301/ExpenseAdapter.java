@@ -25,7 +25,7 @@ public class ExpenseAdapter extends ArrayAdapter{
 		if(view == null){
 			LayoutInflater inflater;
 			inflater = LayoutInflater.from(getContext());
-			view = inflater.inflate(R.layout.claim_adapter, null);
+			view = inflater.inflate(R.layout.expense_adapter, null);
 		}
 		
 		Expense expense = this.expenses.get(position);

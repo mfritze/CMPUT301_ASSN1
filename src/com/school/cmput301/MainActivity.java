@@ -61,7 +61,6 @@ public class MainActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View view, int position,
 					long id) {
 				Toast.makeText(getBaseContext(),"On Click!", Toast.LENGTH_SHORT).show();
-
 			}
 		});
 		
@@ -85,7 +84,8 @@ public class MainActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						ClaimListSingleton.getClaimList().removeClaimAtIndex(claimPosition);
-						//ClaimListSingleton.getClaimList().notifyListeners();
+						//ClaimListSingleton.getClaimList().removeListener(claimPosition);
+						ClaimListSingleton.getClaimList().notifyListeners();
 						window.dismiss();
 					}
 				});
@@ -96,6 +96,7 @@ public class MainActivity extends Activity {
 						//TODO open email client
 						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
 						ClaimListSingleton.getClaimList().submitClaim(c);
+						ClaimListSingleton.getClaimList().notifyListeners();
 						window.dismiss();
 					}
 				});
@@ -105,6 +106,7 @@ public class MainActivity extends Activity {
 					public void onClick(View v) {
 						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
 						ClaimListSingleton.getClaimList().approveClaim(c);
+						ClaimListSingleton.getClaimList().notifyListeners();
 						window.dismiss();
 					}
 				});

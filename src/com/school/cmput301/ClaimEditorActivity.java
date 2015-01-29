@@ -9,7 +9,9 @@ import java.util.HashMap;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -48,7 +52,7 @@ public class ClaimEditorActivity extends Activity {
 		ArrayList<Claim> test = ClaimListSingleton.getClaimList().getClaimArrayList();
 		claim = test.get(claimIndex);
 		
-		addExpenseListeners();
+		setExpenseAdapter();
 		setActionBar();
 	}
 	
@@ -81,16 +85,49 @@ public class ClaimEditorActivity extends Activity {
 		});
 	}
 	
-	private void addExpenseListeners(){
-		ListView expenseView = (ListView) findViewById(R.id.expenseList);
+	private void setExpenseAdapter(){
+		final ListView expenseView = (ListView) findViewById(R.id.expenseList);
 		Collection<Expense> expenseCollection = claim.getExpenseList();
 		final ArrayList<Expense> expenses = new ArrayList<Expense>(expenseCollection);
-		//final ArrayAdapter<Expense> expenseAdapter = new ArrayAdapter<Expense>(this, android.R.layout.simple_list_item_1 , expenses);
 		final ExpenseAdapter expenseAdapter = new ExpenseAdapter(this, R.layout.expense_adapter, expenses);
 		final int index = claimIndex;
 		final TextView currencyView = (TextView) findViewById(R.id.currencyText);
 		expenseView.setAdapter(expenseAdapter);
 		
+		expenseView.setOnItemClickListener(new OnItemClickListener(){
+			//Based on http://www.mkyong.com/android/android-alert-dialog-example/ Jan 28 2015
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				AlertDialog.Builder ad = new AlertDialog.Builder(ClaimEditorActivity.this);
+				final Claim claim = ClaimListSingleton.getClaimList().getClaimAtIndex(claimIndex);
+				if(claim != null){
+					final Expense expense = claim.getExpenseList().get(position);
+					ad.setMessage("Delete : "+ expense.getCategory() + " ?");
+					ad.setCancelable(true);
+					ad.setPositiveButton("DO IT", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							claim.removeExpense(expense);
+							ClaimListSingleton.getClaimList().notifyListeners();
+						}
+					});
+					
+					ad.setNegativeButton("Nope", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+				}
+				AlertDialog dialogView = ad.create();
+				try{
+					dialogView.show();
+				} catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		ClaimListSingleton.getClaimList().addListener(new Listener(){
 			@Override
@@ -98,9 +135,11 @@ public class ClaimEditorActivity extends Activity {
 				expenses.clear();
 				ClaimList l = ClaimListSingleton.getClaimList();
 				Claim c = l.getClaimAtIndex(index);
-				ArrayList<Expense> newExpenses = c.getExpenseList();
-				expenses.addAll(newExpenses);
-				expenseAdapter.notifyDataSetChanged();
+				if(c != null){
+					ArrayList<Expense> newExpenses = c.getExpenseList();
+					expenses.addAll(newExpenses);
+					expenseAdapter.notifyDataSetChanged();
+				}
 			}
 		});
 		
@@ -117,6 +156,7 @@ public class ClaimEditorActivity extends Activity {
 			}
 			
 		});
+		
 		
 	}
 
