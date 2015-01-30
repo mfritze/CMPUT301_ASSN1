@@ -1,7 +1,9 @@
-package com.school.cmput301;
+package com.school.cmput301.Models;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import com.school.cmput301.Controllers.Listener;
 
 public class ClaimList {
 	private ArrayList<Claim> claimList;

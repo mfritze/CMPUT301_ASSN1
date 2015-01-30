@@ -1,16 +1,18 @@
-package com.school.cmput301;
+package com.school.cmput301.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.school.cmput301.R;
+import com.school.cmput301.Models.Claim;
 
 public class ClaimAdapter extends ArrayAdapter{
 	//based on http://stackoverflow.com/questions/8166497/custom-adapter-for-list-view Jan 24th 2015

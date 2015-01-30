@@ -1,8 +1,10 @@
-package com.school.cmput301;
+package com.school.cmput301.Models;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
+import com.school.cmput301.Controllers.DateComparator;
 
 public class ClaimListSingleton {
 	private static ClaimList claimList; 
@@ -38,7 +40,7 @@ public class ClaimListSingleton {
 	}
 	
 	static public void sortClaimList(){
-		Collections.sort(getClaimList().getClaimArrayList(), new DateComarator());
+		Collections.sort(getClaimList().getClaimArrayList(), new DateComparator());
 	}
 
 }

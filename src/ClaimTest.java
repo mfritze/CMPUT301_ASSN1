@@ -2,8 +2,8 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 
-import com.school.cmput301.Claim;
-import com.school.cmput301.Expense;
+import com.school.cmput301.Models.Claim;
+import com.school.cmput301.Models.Expense;
 
 
 public class ClaimTest extends TestCase {

@@ -1,4 +1,4 @@
-package com.school.cmput301;
+package com.school.cmput301.Models;
 
 public class ClaimStatus {
 	// 0 = editable, 1 = sent, 2 = closed

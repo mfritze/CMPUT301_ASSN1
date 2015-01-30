@@ -20,6 +20,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.school.cmput301.Acitivities.MainActivity;
+import com.school.cmput301.Models.Claim;
+import com.school.cmput301.Models.ClaimListSingleton;
+
 public class ClaimCreatorActivity extends Activity {
 	
 	private final static String CLAIMINDEX = "com.school.cmput301.claimid";

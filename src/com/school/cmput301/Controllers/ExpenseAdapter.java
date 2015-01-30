@@ -1,4 +1,4 @@
-package com.school.cmput301;
+package com.school.cmput301.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.school.cmput301.R;
+import com.school.cmput301.Models.Expense;
 
 public class ExpenseAdapter extends ArrayAdapter{
 	//based on http://stackoverflow.com/questions/8166497/custom-adapter-for-list-view Jan 24th 2015

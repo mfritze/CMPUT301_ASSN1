@@ -1,4 +1,4 @@
-package com.school.cmput301;
+package com.school.cmput301.Models;
 
 import java.util.ArrayList;
 import java.util.Currency;

@@ -1,8 +1,10 @@
-package com.school.cmput301;
+package com.school.cmput301.Models;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+
+import com.school.cmput301.Controllers.AdapterCompatible;
 
 public class Claim implements AdapterCompatible {
 	private String name, category, description;

@@ -1,6 +1,8 @@
-package com.school.cmput301;
+package com.school.cmput301.Models;
 
 import java.util.Date;
+
+import com.school.cmput301.Controllers.AdapterCompatible;
 
 
 //Currency infor http://stackoverflow.com/questions/3888991/currency-code-to-currency-symbol-mapping

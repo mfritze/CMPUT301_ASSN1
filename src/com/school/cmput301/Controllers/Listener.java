@@ -1,4 +1,4 @@
-package com.school.cmput301;
+package com.school.cmput301.Controllers;
 
 public interface Listener {
 	public void update();
