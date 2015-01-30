@@ -48,6 +48,10 @@ public class Claim implements AdapterCompatible {
 		}
 		return expenseList;
 	}
+	
+	public boolean isEditable(){
+		return this.status.isEditable();
+	}
 
 	public void setExpenseList(ArrayList<Expense> expenseList) {
 		this.expenseList = expenseList;
@@ -79,6 +83,7 @@ public class Claim implements AdapterCompatible {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public int getStatus() {
 		return status.getStatus();
 	}

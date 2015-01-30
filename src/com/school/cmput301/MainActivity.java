@@ -16,9 +16,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -76,6 +80,7 @@ public class MainActivity extends Activity {
 				ImageButton deleteClaim = (ImageButton) popupView.findViewById(R.id.deleteClaim);
 				ImageButton sendClaim = (ImageButton) popupView.findViewById(R.id.sendClaim);
 				ImageButton approveClaim = (ImageButton) popupView.findViewById(R.id.approvedClaim);
+				ImageButton editClaim = (ImageButton) popupView.findViewById(R.id.sendClaim);
 				
 				final int claimPosition = position;
 				
@@ -84,7 +89,6 @@ public class MainActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						ClaimListSingleton.getClaimList().removeClaimAtIndex(claimPosition);
-						//ClaimListSingleton.getClaimList().removeListener(claimPosition);
 						ClaimListSingleton.getClaimList().notifyListeners();
 						window.dismiss();
 					}
@@ -111,6 +115,40 @@ public class MainActivity extends Activity {
 					}
 				});
 				
+				editClaim.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						final Claim editingClaim = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
+						window.dismiss();
+						if(editingClaim.isEditable()){
+							LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+							View popupView = inflater.inflate(R.layout.create_claim, null);
+							final PopupWindow editClaimWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT); 
+							final EditText nameView = (EditText) popupView.findViewById(R.id.claimNameEditText);
+							final EditText categoryView = (EditText) popupView.findViewById(R.id.claimCategoryEditText);
+							final EditText descriptionView = (EditText) popupView.findViewById(R.id.claimDescriptionEditText);
+							final DatePicker dateStartView = (DatePicker) popupView.findViewById(R.id.claimStartDatePicker);
+							final DatePicker dateEndView = (DatePicker) popupView.findViewById(R.id.claimEndDatePicker);
+							Button submitButton = (Button) popupView.findViewById(R.id.submitNewClaim);
+							
+							nameView.setText(editingClaim.getName());
+							categoryView.setText(editingClaim.getCategory());
+							descriptionView.setText(editingClaim.getDescription());
+							
+							submitButton.setOnClickListener(new View.OnClickListener() {							
+								@Override
+								public void onClick(View v) {
+									Toast.makeText(getBaseContext(), "Submit", Toast.LENGTH_SHORT).show();
+								}
+							});
+							editClaimWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+						} else{
+							Toast.makeText(getBaseContext(), "This claim cant' be edited", Toast.LENGTH_SHORT).show();
+						}
+						
+					}
+				});
 				//TODO make background darker
 				window.setBackgroundDrawable(new BitmapDrawable());
 		        window.setOutsideTouchable(true);
