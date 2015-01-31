@@ -129,6 +129,9 @@ public class ClaimManagerFragment extends Fragment{
 			nameView.setText(editClaim.getName());
 			categoryView.setText(editClaim.getCategory());
 			descriptionView.setText(editClaim.getDescription());
+			final String originalStartDateValue = String.format("%d/%d/%d", 
+					dateStartView.getDayOfMonth(), dateStartView.getMonth() + 1,dateStartView.getYear());
+
 			
 			submitButton.setOnClickListener(new View.OnClickListener() {							
 				@Override
@@ -139,7 +142,7 @@ public class ClaimManagerFragment extends Fragment{
 					Claim newClaim = editClaim;
 					
 					Date startDate;
-					SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+					SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 					startDateString = String.format("%d/%d/%d", sday,smonth, syear);
 					endDateString = String.format("%d/%d/%d", eday,emonth, eyear);
 					name = nameView.getText().toString();
@@ -155,12 +158,13 @@ public class ClaimManagerFragment extends Fragment{
 					if(!description.equals(editClaim.getDescription())){
 						newClaim.setDescription(description);
 					}
-					if(!startDateString.equals(editClaim.getStartDate())){
+					if(!startDateString.equals(originalStartDateValue)){
 						newClaim.setStartDate(startDateString);
 						try {
 							startDate = dateFormat.parse(startDateString);
 							newClaim.setStartTime(startDate);
 						} catch (ParseException e) {
+							Toast.makeText(getActivity(),"Error reading date!",Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
 						}
 					}
