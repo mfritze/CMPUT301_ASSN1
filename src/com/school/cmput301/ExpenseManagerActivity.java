@@ -43,7 +43,7 @@ import com.school.cmput301.Models.ClaimList;
 import com.school.cmput301.Models.ClaimListSingleton;
 import com.school.cmput301.Models.Expense;
 
-public class ClaimEditorActivity extends Activity {
+public class ExpenseManagerActivity extends Activity {
 	private final String CLAIMINDEX = "com.school.cmput301.claimid";
 	private Claim claim;
 	private int claimIndex;
@@ -53,7 +53,7 @@ public class ClaimEditorActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.claim_editor);
+		setContentView(R.layout.expense_list_layout);
 		
 		Intent intent = getIntent();
 		claimIndex = intent.getIntExtra(CLAIMINDEX, 0);
@@ -87,8 +87,7 @@ public class ClaimEditorActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getBaseContext(), MainActivity.class);
-				startActivity(intent);
+				finish();
 			}
 		});
 	}
@@ -107,7 +106,7 @@ public class ClaimEditorActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				AlertDialog.Builder ad = new AlertDialog.Builder(ClaimEditorActivity.this);
+				AlertDialog.Builder ad = new AlertDialog.Builder(ExpenseManagerActivity.this);
 				final Claim claim = ClaimListSingleton.getClaimList().getClaimAtIndex(claimIndex);
 				if(claim != null){
 					final Expense expense = claim.getExpenseList().get(position);
@@ -190,7 +189,7 @@ public class ClaimEditorActivity extends Activity {
 	public void addExpense(View v){
         
 		LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View popupView = inflater.inflate(R.layout.create_expense, null);
+		View popupView = inflater.inflate(R.layout.expense_manager_layout, null);
 		
 		final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 		final EditText categoryView = (EditText) popupView.findViewById(R.id.expenseName);

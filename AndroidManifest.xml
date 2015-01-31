@@ -27,7 +27,7 @@
             android:label="@string/title_activity_claim_creator" >
         </activity>
         <activity
-            android:name=".ClaimEditorActivity"
+            android:name=".ExpenseManagerActivity"
             android:label="@string/title_activity_claim_editor" >
         </activity>
         <activity

@@ -1,177 +1,184 @@
 package com.school.cmput301.Fragments;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.PopupWindow;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.school.cmput301.R;
-import com.school.cmput301.Controllers.ClaimAdapter;
-import com.school.cmput301.Controllers.Listener;
+import com.school.cmput301.Acitivities.MainActivity;
 import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
 
-public class ClaimManagerFragment extends Fragment {
-	private ClaimAdapter claimAdapter;
-	private ArrayList<Claim> claims;
+public class ClaimManagerFragment extends Fragment{
+	private EditText nameView;
+	private EditText categoryView;
+	private EditText descriptionView;
+	private DatePicker dateStartView; 
+	private DatePicker dateEndView;
+	private Button submitButton;
+	private int claimIndex;
+	private boolean isEditing;
 	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.claim_manager, container, false);
+		View v = inflater.inflate(R.layout.claim_manager_layout, container,  false);
 		return v;
 	}
-
-
+	
+	
+//	private void setFonts(){
+//		TextView startDate = (TextView) getView().findViewById(R.id.startDate);
+//		TextView endDate = (TextView) getView().findViewById(R.id.endDate);
+//		Typeface tf = Typeface.createFromAsset(getAssets(), "Roboto/Roboto-Medium.ttf");
+//		startDate.setTypeface(tf);
+//		endDate.setTypeface(tf);
+//	}
+	
 	@Override
 	public void onStart() {
 		super.onStart();
-		addListeners();
-		manageListAdapter();
+		nameView = (EditText) getView().findViewById(R.id.claimNameEditText);
+		categoryView = (EditText) getView().findViewById(R.id.claimCategoryEditText);
+		descriptionView  = (EditText) getView().findViewById(R.id.claimDescriptionEditText);
+		dateStartView = (DatePicker) getView().findViewById(R.id.claimStartDatePicker);
+		dateEndView = (DatePicker) getView().findViewById(R.id.claimEndDatePicker);
+		submitButton = (Button) getView().findViewById(R.id.submitClaim);
+		if(isEditing){
+			populateEditingFields();
+		}else{
+			setCreateButton();
+		}
 	}
 
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		Collection<Claim> claimCollection = ClaimListSingleton.getClaimList().getClaims();
-		claims = new ArrayList<Claim>(claimCollection);
-		this.claimAdapter = new ClaimAdapter(getActivity(), R.layout.claim_adapter, this.claims);
-	
-	}
-	
-	private void addListeners(){
-		ClaimListSingleton.getClaimList().addListener(new Listener(){
-			@Override
-			public void update(){
-				claims.clear();
-				Collection<Claim> newClaims = ClaimListSingleton.getClaimList().getClaims();
-				claims.addAll(newClaims);
-				claimAdapter.notifyDataSetChanged();
-			}
-		});
-	}
-	
-
-	private void manageListAdapter(){
-		final ListView claimView = (ListView) getView().findViewById(R.id.claimListView);
-
-		claimView.setAdapter(claimAdapter);
-
-		claimView.setOnItemClickListener(new OnItemClickListener(){
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View view, int position,
-					long id) {
-				Toast.makeText(getActivity(),"On Click!", Toast.LENGTH_SHORT).show();
-			}
-		});
+	public int startClaimEditor(){
+		String name,category,description, startDateString, endDateString;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //http://stackoverflow.com/questions/17674308/date-from-edittext Jan 18 2015
+		Date startDate = null;
 		
-		claimView.setOnItemLongClickListener(new OnItemLongClickListener() {
+		//dateString = dateView.getText().toString();
+		name = nameView.getText().toString();
+		category = categoryView.getText().toString();
+		description = descriptionView.getText().toString();
+	
+		
+		if((name.equals("")) || (category.equals("")) || (description.equals("")) ){
+			Toast.makeText(getActivity(), "Fill in all of the fields!", Toast.LENGTH_SHORT).show();
+		}else{
+		
+			try {
+				//Month is the only one indexed from 0
+				int smonth = dateStartView.getMonth() + 1, sday = dateStartView.getDayOfMonth(), syear = dateStartView.getYear();
+				int emonth = dateEndView.getMonth() + 1, eday = dateEndView.getDayOfMonth(), eyear = dateEndView.getYear();
+				startDateString = String.format("%d/%d/%d", sday,smonth, syear);
+				endDateString = String.format("%d/%d/%d", eday,emonth, eyear);
+				startDate = dateFormat.parse(startDateString);
+				//endDate = dateFormat.parse(endDateString);
+				//date = dateFormat.parse(dateString);
+				
+				Claim managingClaim = new Claim(name, category, description, startDateString, endDateString, startDate);
+				ClaimListSingleton.getClaimList().addClaim(managingClaim);
+				ClaimListSingleton.sortClaimList();
+				
+				return ClaimListSingleton.getClaimList().getIndex(managingClaim);
+			} catch (ParseException e) {
+				Toast.makeText(getActivity(), "Error reading date", Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			} 
+		}
+		return -1;		
+	}
+	
+	public void setMode(boolean isEditing){
+		this.isEditing = isEditing;
+	}
+	
+	public void setCreateButton(){
+		submitButton.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View view,
-					int position, long id) {
-				LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				View popupView = inflater.inflate(R.layout.edit_claim_popup, null);
-
-				final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-				
-				ImageButton deleteClaim = (ImageButton) popupView.findViewById(R.id.deleteClaim);
-				ImageButton sendClaim = (ImageButton) popupView.findViewById(R.id.sendClaim);
-				ImageButton approveClaim = (ImageButton) popupView.findViewById(R.id.approvedClaim);
-				ImageButton editClaim = (ImageButton) popupView.findViewById(R.id.editClaim);
-				
-				final int claimPosition = position;
-				
-				deleteClaim.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				((MainActivity) getActivity()).startClaimEditor();
+			}
+		});
+		nameView.setText("");
+		categoryView.setText("");
+		descriptionView.setText("");
+	}
+	
+	public void populateEditingFields(){
+		final Claim editClaim = ClaimListSingleton.getClaimList().getClaimAtIndex(claimIndex);
+		if(editClaim != null){
+			this.isEditing = true;
+			
+			nameView.setText(editClaim.getName());
+			categoryView.setText(editClaim.getCategory());
+			descriptionView.setText(editClaim.getDescription());
+			
+			submitButton.setOnClickListener(new View.OnClickListener() {							
+				@Override
+				public void onClick(View v) {
+					int smonth = dateStartView.getMonth() + 1, sday = dateStartView.getDayOfMonth(), syear = dateStartView.getYear();
+					int emonth = dateEndView.getMonth() + 1, eday = dateEndView.getDayOfMonth(), eyear = dateEndView.getYear();
+					String startDateString, endDateString, name, category, description;
+					Claim newClaim = editClaim;
 					
-					@Override
-					public void onClick(View v) {
-						ClaimListSingleton.getClaimList().removeClaimAtIndex(claimPosition);
-						ClaimListSingleton.getClaimList().notifyListeners();
-						window.dismiss();
+					Date startDate;
+					SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+					startDateString = String.format("%d/%d/%d", sday,smonth, syear);
+					endDateString = String.format("%d/%d/%d", eday,emonth, eyear);
+					name = nameView.getText().toString();
+					description = descriptionView.getText().toString();
+					category = categoryView.getText().toString();
+					
+					if(!name.equals(editClaim.getName())){
+						newClaim.setName(name);
 					}
-				});
-				
-				sendClaim.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						//TODO open email client
-						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
-						ClaimListSingleton.getClaimList().submitClaim(c);
-						ClaimListSingleton.getClaimList().notifyListeners();
-						window.dismiss();
+					if(!category.equals(editClaim.getCategory())){
+						newClaim.setCategory(category);
 					}
-				});
-				
-				approveClaim.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
-						ClaimListSingleton.getClaimList().approveClaim(c);
-						ClaimListSingleton.getClaimList().notifyListeners();
-						window.dismiss();
+					if(!description.equals(editClaim.getDescription())){
+						newClaim.setDescription(description);
 					}
-				});
-				//TODO
-//				editClaim.setOnClickListener(new View.OnClickListener() {
-//					
-//					@Override
-//					public void onClick(View v) {
-//						final Claim editingClaim = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
-//						window.dismiss();
-//						if(editingClaim.isEditable()){
-//							LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//							View popupView = inflater.inflate(R.layout.create_claim, null);
-//							final PopupWindow editClaimWindow = new PopupWindow(popupView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT); 
-//							final EditText nameView = (EditText) popupView.findViewById(R.id.claimNameEditText);
-//							final EditText categoryView = (EditText) popupView.findViewById(R.id.claimCategoryEditText);
-//							final EditText descriptionView = (EditText) popupView.findViewById(R.id.claimDescriptionEditText);
-//							final DatePicker dateStartView = (DatePicker) popupView.findViewById(R.id.claimStartDatePicker);
-//							final DatePicker dateEndView = (DatePicker) popupView.findViewById(R.id.claimEndDatePicker);
-//							Button submitButton = (Button) popupView.findViewById(R.id.submitNewClaim);
-//							
-//							nameView.setText(editingClaim.getName());
-//							categoryView.setText(editingClaim.getCategory());
-//							descriptionView.setText(editingClaim.getDescription());
-//							
-//							submitButton.setOnClickListener(new View.OnClickListener() {							
-//								@Override
-//								public void onClick(View v) {
-//									Toast.makeText(getBaseContext(), "Submit", Toast.LENGTH_SHORT).show();
-//								}
-//							});
-//							editClaimWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-//						} else{
-//							Toast.makeText(getBaseContext(), "This claim cant' be edited", Toast.LENGTH_SHORT).show();
-//						}
-//						
-//					}
-//				});
-				//TODO make background darker
-				window.setBackgroundDrawable(new BitmapDrawable());
-		        window.setOutsideTouchable(true);
-				window.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-				return false;
-			}
-		
-		});
+					if(!startDateString.equals(editClaim.getStartDate())){
+						newClaim.setStartDate(startDateString);
+						try {
+							startDate = dateFormat.parse(startDateString);
+							newClaim.setStartTime(startDate);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+					}
+					if(!endDateString.equals(editClaim.getEndDate())){
+						editClaim.setEndDate(endDateString);
+					}
+					ClaimListSingleton.getClaimList().replaceClaim(claimIndex, newClaim);
+					((MainActivity) getActivity()).changeToClaimList();
+
+				}
+			});
+		}else{
+			Toast.makeText(getActivity(), "Empty claim!", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public void setClaim(int index) {
+		this.claimIndex = index;
 	}
 
 }

@@ -13,6 +13,14 @@ public class Claim implements AdapterCompatible {
 	private Date startTime;
 	private ArrayList<Expense> expenseList;
 	
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
 	public Claim(String name, String category,String description, String startDate, String endDate, Date startTime){
 		this.name = name;
 		this.category = category;

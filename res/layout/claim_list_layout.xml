@@ -8,6 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="#ffffff"
     tools:context="com.school.cmput301.MainActivity" >
     
 	<ListView
@@ -23,7 +24,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
 	    android:layout_alignParentRight="true"
-	    android:onClick="launchClaimEditor"
+	    android:onClick="createClaim"
 	    android:text="@string/addclaim" />
 
 </RelativeLayout>

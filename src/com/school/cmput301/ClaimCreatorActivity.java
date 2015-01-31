@@ -31,7 +31,7 @@ public class ClaimCreatorActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.create_claim);
+		setContentView(R.layout.claim_manager_layout);
 		setFonts();
 		setActionBar();
 	}
@@ -84,14 +84,13 @@ public class ClaimCreatorActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(getBaseContext(), MainActivity.class);
-				startActivity(intent);
+				finish();
 			}
 		});
 	}
 	
 	public void startClaimEditor(View v){
-		Intent intent = new Intent(this, ClaimEditorActivity.class);
+		Intent intent = new Intent(this, ExpenseManagerActivity.class);
 		
 		EditText nameView = (EditText) findViewById(R.id.claimNameEditText);
 		EditText categoryView = (EditText) findViewById(R.id.claimCategoryEditText);

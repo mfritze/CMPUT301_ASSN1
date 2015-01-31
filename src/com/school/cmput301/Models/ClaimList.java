@@ -79,4 +79,10 @@ public class ClaimList {
 	public void removeClaimAtIndex(int i ){
 		this.claimList.remove(i);
 	}
+
+	public void replaceClaim(int claimIndex, Claim newClaim) {
+		if(!this.claimList.isEmpty() || (this.claimList.size() > claimIndex) || (claimIndex >= 0)){
+			this.claimList.set(claimIndex, newClaim);
+		}
+	}
 }
