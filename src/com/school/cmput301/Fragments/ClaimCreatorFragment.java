@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.school.cmput301.ClaimEditorActivity;
 import com.school.cmput301.R;
 import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
@@ -30,11 +28,6 @@ public class ClaimCreatorFragment extends Fragment{
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		nameView = (EditText) getView().findViewById(R.id.claimNameEditText);
-		categoryView = (EditText) getView().findViewById(R.id.claimCategoryEditText);
-		descriptionView  = (EditText) getView().findViewById(R.id.claimDescriptionEditText);
-		dateStartView = (DatePicker) getView().findViewById(R.id.claimStartDatePicker);
-		dateEndView = (DatePicker) getView().findViewById(R.id.claimEndDatePicker);
 	}
 
 	@Override
@@ -53,6 +46,16 @@ public class ClaimCreatorFragment extends Fragment{
 //		endDate.setTypeface(tf);
 //	}
 	
+	@Override
+	public void onStart() {
+		super.onStart();
+		nameView = (EditText) getView().findViewById(R.id.claimNameEditText);
+		categoryView = (EditText) getView().findViewById(R.id.claimCategoryEditText);
+		descriptionView  = (EditText) getView().findViewById(R.id.claimDescriptionEditText);
+		dateStartView = (DatePicker) getView().findViewById(R.id.claimStartDatePicker);
+		dateEndView = (DatePicker) getView().findViewById(R.id.claimEndDatePicker);
+	}
+
 	public int startClaimEditor(){
 		String name,category,description, startDateString, endDateString;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //http://stackoverflow.com/questions/17674308/date-from-edittext Jan 18 2015

@@ -6,7 +6,6 @@ import java.util.Collection;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -21,7 +20,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import com.school.cmput301.ClaimEditorActivity;
 import com.school.cmput301.R;
 import com.school.cmput301.Controllers.ClaimAdapter;
 import com.school.cmput301.Controllers.Listener;
@@ -39,11 +37,14 @@ public class ClaimManagerFragment extends Fragment {
 		return v;
 	}
 
+
 	@Override
-	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
-		super.onAttach(activity);
+	public void onStart() {
+		super.onStart();
+		addListeners();
+		manageListAdapter();
 	}
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class ClaimManagerFragment extends Fragment {
 		Collection<Claim> claimCollection = ClaimListSingleton.getClaimList().getClaims();
 		claims = new ArrayList<Claim>(claimCollection);
 		this.claimAdapter = new ClaimAdapter(getActivity(), R.layout.claim_adapter, this.claims);
+	
 	}
 	
 	private void addListeners(){
