@@ -21,22 +21,23 @@ import com.school.cmput301.Activities.ExpenseManagerActivity;
 import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
 import com.school.cmput301.Models.Expense;
+import com.school.cmput301.Models.ExpenseCost;
 
 public class ExpenseManagerFragment extends Fragment{
 	private Claim editClaim;
-	private int claimIndex;
-	private Expense editExpense;
+	private int expenseIndex;
+	private Expense editExpense = null;
 	private boolean isEditing;
 	private EditText categoryView;
 	private EditText descView;
 	private EditText costView;
 	private DatePicker dateView;
 	private Spinner spinView;
+	private Button submitButton;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		isEditing = false;
 		editClaim = ((ExpenseManagerActivity) getActivity()).getWorkingClaim();
 	}
 
@@ -54,11 +55,13 @@ public class ExpenseManagerFragment extends Fragment{
 		this.descView = (EditText) getView().findViewById(R.id.expenseDescription);
 		this.costView = (EditText) getView().findViewById(R.id.expenseCost);
 		this.dateView = (DatePicker) getView().findViewById(R.id.expenseDate);
-		this.spinView = (Spinner) getView().findViewById(R.id.currencySelector);		
+		this.spinView = (Spinner) getView().findViewById(R.id.currencySelector);	
+		this.submitButton = (Button) getView().findViewById(R.id.submitExpense);
 		String[] spinnerItems = {"CAD", "USD", "EUR", "GBP"};
 		ArrayAdapter<String> spinAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, spinnerItems);
 		spinView.setAdapter(spinAdapter);
 		if(isEditing){
+			editExpense = editClaim.getExpenseList().get(expenseIndex);
 			populateFields();
 		}else{
 			clearFields();
@@ -70,7 +73,7 @@ public class ExpenseManagerFragment extends Fragment{
 	}
 
 	public void setClaimIndex(int i){
-		this.claimIndex = i;
+		this.expenseIndex = i;
 	}
 	
 	public void createExpense(){
@@ -109,7 +112,74 @@ public class ExpenseManagerFragment extends Fragment{
 	}
 
 	public void populateFields(){
-		Toast.makeText(getActivity(), "POPULATE", Toast.LENGTH_SHORT).show();
+		if(editExpense != null){
+			final Expense oldExpense = this.editExpense;
+			final String originalStartDateValue = String.format("%d/%d/%d", 
+					dateView.getDayOfMonth(), dateView.getMonth() + 1,dateView.getYear()),
+					CATEGORY = editExpense.getCategory(),
+					DESCRIPTION = editExpense.getDescription(),
+					CURRENCY = editExpense.getCost().getCurrency();
+			final float COST = editExpense.getCost().getPrice();
+			int spinSelection = editExpense.getSpinPosition();
+
+			this.categoryView.setText(CATEGORY);
+			this.descView.setText(DESCRIPTION);
+			this.costView.setText(Float.toString(COST));
+			this.spinView.setSelection(spinSelection);
+			
+			submitButton.setOnClickListener(new View.OnClickListener() {							
+				@Override
+				public void onClick(View v) {
+					int month = dateView.getMonth() + 1, day = dateView.getDayOfMonth(), year = dateView.getYear();
+					String startDateString, category, description, currencyCode;
+					float cost = - 1;
+					Expense newExpense = oldExpense;
+					Date startDate;
+					SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					
+					startDateString = String.format("%d/%d/%d", day,month, year);
+					description = descView.getText().toString();
+					category = categoryView.getText().toString();
+					currencyCode = (String) spinView.getSelectedItem();
+					try{ 
+						cost = Float.valueOf(costView.getText().toString());
+					}catch(NumberFormatException e){
+						Toast.makeText(getActivity(), "Couldn't convert price", Toast.LENGTH_SHORT).show();
+						e.printStackTrace();
+					}
+
+					if(!category.equals(CATEGORY)){
+						newExpense.setCategory(category);
+					}
+					if(!description.equals(DESCRIPTION)){
+						newExpense.setDescription(description);
+					}
+					
+					if((cost != -1 && cost != COST) || (!currencyCode.equals(CURRENCY))){
+						ExpenseCost newCost = new ExpenseCost(cost, currencyCode);
+						newExpense.setCost(newCost);
+					}
+					
+					if(!startDateString.equals(originalStartDateValue)){
+						newExpense.setDateString(startDateString);
+						try {
+							startDate = dateFormat.parse(startDateString);
+							newExpense.setDate(startDate);
+						} catch (ParseException e) {
+							Toast.makeText(getActivity(),"Error reading date!",Toast.LENGTH_SHORT).show();
+							e.printStackTrace();
+						}
+					}
+					
+					int claimIndex = ((ExpenseManagerActivity) getActivity()).getClaimIndex();
+					ClaimListSingleton.getClaimList().getClaimAtIndex(claimIndex).replaceExpense(expenseIndex, newExpense);
+					((ExpenseManagerActivity) getActivity()).startExpenseList();
+
+				}
+			});
+		}else{
+			Toast.makeText(getActivity(), "Empty Expense!", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	private void clearFields() {

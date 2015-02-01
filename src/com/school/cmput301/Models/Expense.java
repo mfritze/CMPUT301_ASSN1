@@ -70,5 +70,19 @@ public class Expense implements AdapterCompatible{
 		return this.dateString;
 	}
 	
-	
+	public int getSpinPosition(){
+		String currency = this.cost.getCurrency();
+		if(!currency.equals(null)){
+			if(currency.equals("CAD")){
+				return 0;
+			}else if(currency.equals("USD")){
+				return 1;
+			}else if(currency.equals("EUR")){
+				return 2;
+			}else if(currency.equals("GBP")){
+				return 3;
+			}
+		}
+		return -1;
+	}
 }

@@ -76,16 +76,21 @@ public class ExpenseManagerActivity extends Activity {
 		expenseManagerFragment.setMode(false);
 	}
 	
-	public void editExpense(){
+	public void editExpense(int position){
 		ft = fm.beginTransaction();
 		ft.replace(R.id.claimFragmentHolder , this.expenseManagerFragment);
 		ft.commit();
 		
 		expenseManagerFragment.setMode(true);
+		expenseManagerFragment.setClaimIndex(position);
 	}
 	
 	public void submitExpense(View v){
 		expenseManagerFragment.createExpense();
+	}
+	
+	public int getClaimIndex(){
+		return this.claimIndex;
 	}
 	
 	public Claim getWorkingClaim(){

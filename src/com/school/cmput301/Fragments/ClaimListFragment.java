@@ -6,6 +6,7 @@ import java.util.Collection;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,6 +19,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.school.cmput301.R;
@@ -27,6 +29,7 @@ import com.school.cmput301.Controllers.ClaimAdapter;
 import com.school.cmput301.Controllers.Listener;
 import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
+import com.school.cmput301.Models.ClaimStatus;
 
 public class ClaimListFragment extends Fragment {
 	private ClaimAdapter claimAdapter;
@@ -87,10 +90,14 @@ public class ClaimListFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int position,
 					long id) {
-				Toast.makeText(getActivity(),"On Click!", Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(getActivity(), ExpenseManagerActivity.class);
-				intent.putExtra(MainActivity.CLAIMINDEX, position);
-				startActivity(intent);
+				Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(position);
+				if(c.getStatus() == ClaimStatus.INPROGRESS){
+					Intent intent = new Intent(getActivity(), ExpenseManagerActivity.class);
+					intent.putExtra(MainActivity.CLAIMINDEX, position);
+					startActivity(intent);
+				}else{
+					Toast.makeText(getActivity(), "Cannot edit this claim", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 		
@@ -102,11 +109,11 @@ public class ClaimListFragment extends Fragment {
 				View popupView = inflater.inflate(R.layout.claim_edit_popup, null);
 
 				final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-				
-				ImageButton deleteClaim = (ImageButton) popupView.findViewById(R.id.deleteClaim);
-				ImageButton sendClaim = (ImageButton) popupView.findViewById(R.id.sendClaim);
-				ImageButton approveClaim = (ImageButton) popupView.findViewById(R.id.approvedClaim);
-				ImageButton editClaim = (ImageButton) popupView.findViewById(R.id.editClaim);
+				final View elementView = view;
+				ImageButton deleteClaim = (ImageButton) popupView.findViewById(R.id.removeClaimButton);
+				ImageButton sendClaim = (ImageButton) popupView.findViewById(R.id.setSentButton);
+				ImageButton approveClaim = (ImageButton) popupView.findViewById(R.id.setApprovedButton);
+				ImageButton editClaim = (ImageButton) popupView.findViewById(R.id.setInProgressButton);
 				
 				final int claimPosition = position;
 				
@@ -125,8 +132,14 @@ public class ClaimListFragment extends Fragment {
 					public void onClick(View v) {
 						//TODO open email client
 						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
-						ClaimListSingleton.getClaimList().submitClaim(c);
-						ClaimListSingleton.getClaimList().notifyListeners();
+						if(c.getStatus() == ClaimStatus.SENT){
+							Toast.makeText(getActivity(), "Already sent this claim", Toast.LENGTH_SHORT).show();
+						} else if(c.getStatus() == ClaimStatus.APPROVED){
+							Toast.makeText(getActivity(), "Claim is already approved", Toast.LENGTH_SHORT).show();
+						} else{ // in progress
+							ClaimListSingleton.getClaimList().sendClaim(c);
+							ClaimListSingleton.getClaimList().notifyListeners();
+						}
 						window.dismiss();
 					}
 				});
@@ -135,8 +148,14 @@ public class ClaimListFragment extends Fragment {
 					@Override
 					public void onClick(View v) {
 						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
-						ClaimListSingleton.getClaimList().approveClaim(c);
-						ClaimListSingleton.getClaimList().notifyListeners();
+						if(c.getStatus() != ClaimStatus.SENT){
+							Toast.makeText(getActivity(), "The Claim must be sent to be approved", Toast.LENGTH_SHORT).show();
+						}else{
+							// background color based on http://stackoverflow.com/questions/23517879/set-background-color-programmatically Feb 1 2015
+							//elementView.setBackgroundColor(Color.parseColor("#dddddd")); //TODO if you want to set the background colol
+							ClaimListSingleton.getClaimList().approveClaim(c);
+							ClaimListSingleton.getClaimList().notifyListeners();
+						}
 						window.dismiss();
 					}
 				});
@@ -145,9 +164,10 @@ public class ClaimListFragment extends Fragment {
 					
 					@Override
 					public void onClick(View v) {
-						final Claim editingClaim = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
+						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
 						window.dismiss();
-						if(editingClaim.isEditable()){
+						if(c.isEditable()){
+								c.setStatus(ClaimStatus.INPROGRESS);
 								((MainActivity) getActivity()).editClaim(claimPosition);
 						} else{
 							Toast.makeText(getActivity(), "This claim can't be edited", Toast.LENGTH_SHORT).show();

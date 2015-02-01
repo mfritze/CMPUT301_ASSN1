@@ -55,12 +55,12 @@ public class ClaimList {
 		return this.listeners;
 	}
 	
-	public void submitClaim(Claim c){
+	public void sendClaim(Claim c){
 		c.setStatus(ClaimStatus.SENT);
 	}
 	
 	public void approveClaim(Claim c){
-		c.setStatus(ClaimStatus.CLOSED);
+		c.setStatus(ClaimStatus.APPROVED);
 	}
 	
 	public void editClaim(Claim c){

@@ -41,15 +41,6 @@ public class ClaimManagerFragment extends Fragment{
 		return v;
 	}
 	
-	
-//	private void setFonts(){
-//		TextView startDate = (TextView) getView().findViewById(R.id.startDate);
-//		TextView endDate = (TextView) getView().findViewById(R.id.endDate);
-//		Typeface tf = Typeface.createFromAsset(getAssets(), "Roboto/Roboto-Medium.ttf");
-//		startDate.setTypeface(tf);
-//		endDate.setTypeface(tf);
-//	}
-	
 	@Override
 	public void onStart() {
 		super.onStart();

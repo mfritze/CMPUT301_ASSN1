@@ -52,6 +52,14 @@ public class Claim implements AdapterCompatible {
 		return currencies;
 	}
 	
+	public void replaceExpense(int expenseIndex, Expense newExpense){
+		if(newExpense != null && expenseIndex >= 0 && expenseIndex < this.expenseList.size()){
+			this.expenseList.set(expenseIndex, newExpense);
+		}else{
+			throw new IndexOutOfBoundsException("Improper expense index!");
+		}
+	}
+	
 	public ArrayList<Expense> getExpenseList() {
 		if(expenseList == null){
 			expenseList = new ArrayList<Expense>();

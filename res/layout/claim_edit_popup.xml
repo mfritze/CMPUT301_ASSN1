@@ -4,34 +4,36 @@
     android:layout_height="wrap_content"
     android:background="#555555" >
 
-    <ImageButton
-        android:id="@+id/sendClaim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_dialog_email" />
+	    <ImageButton
+	        android:id="@+id/setApprovedButton"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:src="@android:drawable/ic_menu_myplaces" />
 
-    <ImageButton
-        android:id="@+id/editClaim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/approvedClaim"
-        android:src="@android:drawable/ic_menu_edit" />
+        <ImageButton
+            android:id="@+id/setSentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/setApprovedButton"
+            android:src="@android:drawable/ic_dialog_email" />
 
-    <ImageButton
-        android:id="@+id/deleteClaim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/editClaim"
-        android:src="@android:drawable/ic_menu_delete" />
+        <ImageButton
+            android:id="@+id/setInProgressButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/setSentButton"
+            android:src="@android:drawable/ic_menu_edit" />
 
-    <ImageButton
-        android:id="@+id/approvedClaim"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/sendClaim"
-        android:layout_toRightOf="@+id/sendClaim"
-        android:src="@android:drawable/ic_menu_myplaces" />
+        <ImageButton
+            android:id="@+id/removeClaimButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/setInProgressButton"
+            android:src="@android:drawable/ic_menu_delete" />
 
 </RelativeLayout>

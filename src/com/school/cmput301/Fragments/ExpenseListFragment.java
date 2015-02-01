@@ -16,8 +16,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.school.cmput301.R;
 import com.school.cmput301.Activities.ExpenseManagerActivity;
 import com.school.cmput301.Controllers.ExpenseAdapter;
@@ -106,7 +104,7 @@ public class ExpenseListFragment extends Fragment{
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int position,
 					long id){
-				Toast.makeText(getActivity(), "EDIT ME", Toast.LENGTH_SHORT).show();
+				((ExpenseManagerActivity) getActivity()).editExpense(position);
 			}
 		});
 		
@@ -118,7 +116,7 @@ public class ExpenseListFragment extends Fragment{
 				AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
 				if(claim != null){
 					final Expense expense = claim.getExpenseList().get(position);
-					ad.setMessage("Delete : "+ expense.getCategory() + " ?");
+					ad.setMessage("Delete : "+ expense.getCategory() + "?");
 					ad.setCancelable(true);
 					ad.setPositiveButton("DO IT", new DialogInterface.OnClickListener() {
 						@Override
