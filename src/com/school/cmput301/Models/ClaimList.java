@@ -9,8 +9,6 @@ public class ClaimList {
 	private ArrayList<Claim> claimList;
 	private ArrayList<Listener> listeners;
 	
-	private final int EDITABLE = 0, SENT = 1, CLOSED = 2;
-	
 	public ClaimList(){
 		claimList = new ArrayList<Claim>();
 		listeners = new ArrayList<Listener>();
@@ -58,15 +56,15 @@ public class ClaimList {
 	}
 	
 	public void submitClaim(Claim c){
-		c.setStatus(SENT);
+		c.setStatus(ClaimStatus.SENT);
 	}
 	
 	public void approveClaim(Claim c){
-		c.setStatus(CLOSED);
+		c.setStatus(ClaimStatus.CLOSED);
 	}
 	
 	public void editClaim(Claim c){
-		c.setStatus(EDITABLE);
+		c.setStatus(ClaimStatus.INPROGRESS);
 	}
 	
 	public Claim getClaimAtIndex(int i){

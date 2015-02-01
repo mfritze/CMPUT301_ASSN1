@@ -2,7 +2,7 @@ package com.school.cmput301.Models;
 
 public class ClaimStatus {
 	// 0 = editable, 1 = sent, 2 = closed
-	private final int INPROGRESS = 0, SENT = 1, CLOSED = 2;
+	public static final int INPROGRESS = 0, SENT = 1, CLOSED = 2;
 	private int status;
 	
 	public ClaimStatus(int status){

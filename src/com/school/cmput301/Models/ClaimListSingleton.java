@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import com.school.cmput301.Controllers.DateComparator;
+import com.school.cmput301.Controllers.ClaimComparator;
+import com.school.cmput301.Controllers.ExpenseComparator;
 
 public class ClaimListSingleton {
 	private static ClaimList claimList; 
@@ -40,7 +41,10 @@ public class ClaimListSingleton {
 	}
 	
 	static public void sortClaimList(){
-		Collections.sort(getClaimList().getClaimArrayList(), new DateComparator());
+		Collections.sort(getClaimList().getClaimArrayList(), new ClaimComparator());
+		for(Claim claim: getClaimList().getClaims()){
+			Collections.sort(claim.getExpenseList(), new ExpenseComparator());
+		}
 	}
 
 }

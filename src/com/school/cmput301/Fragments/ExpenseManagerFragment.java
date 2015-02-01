@@ -74,7 +74,7 @@ public class ExpenseManagerFragment extends Fragment{
 	}
 	
 	public void createExpense(){
-		String category, description, dateString, currencyCode;
+		String category, description, dateString = "", currencyCode;
 		float cost = -1;
 		Date date = null;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -101,7 +101,7 @@ public class ExpenseManagerFragment extends Fragment{
 				Toast.makeText(getActivity(), "Error reading date", Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			} 	
-			Expense exp = new Expense(date, category, description,cost, currencyCode);
+			Expense exp = new Expense(date, dateString, category, description,cost, currencyCode);
 			editClaim.addExpense(exp);
 			ClaimListSingleton.getClaimList().notifyListeners();
 			((ExpenseManagerActivity) getActivity()).startExpenseList();

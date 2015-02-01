@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.school.cmput301.R;
 import com.school.cmput301.Models.Claim;
+import com.school.cmput301.Models.ClaimStatus;
 
 public class ClaimAdapter extends ArrayAdapter{
 	//based on http://stackoverflow.com/questions/8166497/custom-adapter-for-list-view Jan 24th 2015
@@ -47,11 +48,11 @@ public class ClaimAdapter extends ArrayAdapter{
 			costView.setText(claim.getCostText());
 			
 			int status = claim.getStatus();
-			if(status == 0){
+			if(status == ClaimStatus.INPROGRESS){
 				statusView.setImageResource(android.R.drawable.ic_menu_edit);
-			}else if(status == 1){
+			}else if(status == ClaimStatus.SENT){
 				statusView.setImageResource(android.R.drawable.ic_dialog_email);
-			}else{
+			}else{ // CLOSED
 				statusView.setImageResource(android.R.drawable.ic_menu_myplaces);
 			}
 		}

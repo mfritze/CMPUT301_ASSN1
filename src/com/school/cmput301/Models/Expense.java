@@ -9,17 +9,26 @@ import com.school.cmput301.Controllers.AdapterCompatible;
 // jan 17 2015
 public class Expense implements AdapterCompatible{
 	private Date date;
-	private String category, description;
+	private String category, description, dateString;
 	private ExpenseCost cost;
 	
-	public Expense(Date date, String category, String description,
+	public Expense(Date date, String dateString, String category, String description,
 			float price, String currency){
+		this.dateString = dateString;
 		this.date = date;
 		this.category = category;
 		this.description = description;
 		this.cost = new ExpenseCost(price, currency);
 	}
 	
+	public String getDateString() {
+		return dateString;
+	}
+
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -51,14 +60,14 @@ public class Expense implements AdapterCompatible{
 	}
 
 	@Override
-	public String getDateText() {
-		return this.date.getDay() +"/"+ this.date.getMonth() + "/" + (this.date.getYear() + 1901);
-	}
-
-	@Override
 	public String getCostText() {
 		float value = this.cost.getPrice();
 		return Float.toString(value) + " " + this.cost.getCurrency();
+	}
+
+	@Override
+	public String getDateText() {
+		return this.dateString;
 	}
 	
 	
