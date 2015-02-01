@@ -6,7 +6,6 @@ import java.util.Collection;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,7 +18,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.school.cmput301.R;
@@ -41,7 +39,6 @@ public class ClaimListFragment extends Fragment {
 		View v = inflater.inflate(R.layout.claim_list_layout, container, false);
 		return v;
 	}
-
 
 	@Override
 	public void onStart() {
@@ -78,6 +75,7 @@ public class ClaimListFragment extends Fragment {
 			}
 			
 		});
+		
 	}
 	
 	private void manageListAdapter(){

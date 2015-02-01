@@ -23,18 +23,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ClaimCreatorActivity"
-            android:label="@string/title_activity_claim_creator" >
-        </activity>
-        <activity
-            android:name=".ExpenseManagerActivityTEMP"
-            android:label="@string/title_activity_claim_editor" >
-        </activity>
-        <activity
-            android:name=".ExpenseCreator"
-            android:label="@string/title_activity_expense_creator" >
-        </activity>
-        <activity
             android:name="com.school.cmput301.Activities.ExpenseManagerActivity"
             android:label="@string/title_activity_expense_manager" >
         </activity>

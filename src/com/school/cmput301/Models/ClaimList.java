@@ -14,6 +14,11 @@ public class ClaimList {
 		listeners = new ArrayList<Listener>();
 	}
 	
+	public ClaimList(ArrayList<Claim> claims){
+		claimList = claims;
+		listeners = new ArrayList<Listener>();
+	}
+	
 	public void notifyListeners(){
 		for(Listener l : this.listeners){
 			l.update();
@@ -53,6 +58,10 @@ public class ClaimList {
 	
 	public ArrayList<Listener> getListeners(){
 		return this.listeners;
+	}
+	
+	public void setClaimArrayList(ArrayList<Claim> claims){
+		this.claimList = claims;
 	}
 	
 	public Claim getClaimAtIndex(int i){

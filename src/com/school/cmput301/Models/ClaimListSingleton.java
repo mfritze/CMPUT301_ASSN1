@@ -46,5 +46,7 @@ public class ClaimListSingleton {
 			Collections.sort(claim.getExpenseList(), new ExpenseComparator());
 		}
 	}
+	
+
 
 }

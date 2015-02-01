@@ -1,5 +1,14 @@
 package com.school.cmput301.Activities;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -15,9 +24,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.school.cmput301.R;
+import com.school.cmput301.Controllers.Listener;
 import com.school.cmput301.Fragments.ClaimListFragment;
 import com.school.cmput301.Fragments.ClaimManagerFragment;
+import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
 
 public class MainActivity extends Activity {
@@ -26,6 +39,8 @@ public class MainActivity extends Activity {
 	private ClaimListFragment claimListFragment;
 	private ClaimManagerFragment claimManagerFragment;
 	public final static String CLAIMINDEX = "com.school.cmput301.claimid";
+	private static String FILENAME = "claimlist.sav";
+
 	
 	//Fragment management based on http://www.vogella.com/tutorials/AndroidFragments/article.html#usingfragments_layout Jan 30 2015
 	@Override
@@ -36,6 +51,15 @@ public class MainActivity extends Activity {
 		fm = getFragmentManager();
 		claimListFragment = new ClaimListFragment();
 		claimManagerFragment = new ClaimManagerFragment();
+		loadClaimList();
+		
+		ClaimListSingleton.getClaimList().addListener(new Listener(){
+
+			@Override
+			public void update() {
+				saveInFile();
+			}
+		});
 	}
 	
 	@Override
@@ -96,10 +120,11 @@ public class MainActivity extends Activity {
 	}
 	
 	public void changeToClaimList(){
+		ClaimListSingleton.getClaimList().notifyListeners();
+		
 		ft = fm.beginTransaction();
 		ft.replace(R.id.mainFragmentHolder , this.claimListFragment);
 		ft.commit();
-		ClaimListSingleton.getClaimList().notifyListeners();
 	}
 	
 	public void createClaim(View v){
@@ -127,6 +152,46 @@ public class MainActivity extends Activity {
 			startActivity(intent);
 		}else{
 			Toast.makeText(this, "Error creating claim", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	public void loadClaimList() {
+		Gson gson = new Gson();
+		ArrayList<Claim> claims = new ArrayList<Claim>();
+		
+		try {
+			FileInputStream fis = openFileInput(FILENAME);
+			//From http://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.html Jan 22 2015
+			Type listType = new TypeToken<ArrayList<Claim>>() {}.getType(); 
+			InputStreamReader isr = new InputStreamReader(fis);
+			claims = gson.fromJson(isr, listType);			
+			fis.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(claims == null){
+			claims = new ArrayList<Claim>();
+		}
+		ClaimListSingleton.getClaimList().setClaimArrayList(claims);
+	}
+
+
+	public void saveInFile() {
+		Gson gson = new Gson();
+		ArrayList<Claim> claims = ClaimListSingleton.getClaimList().getClaimArrayList();
+		try {
+			FileOutputStream fos = openFileOutput(FILENAME, MODE_PRIVATE);
+			OutputStreamWriter osw = new OutputStreamWriter(fos);
+			gson.toJson(claims, osw);
+			osw.flush();
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

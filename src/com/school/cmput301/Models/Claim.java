@@ -48,7 +48,6 @@ public class Claim implements AdapterCompatible {
 				currencies.put(label,value);
 			}
 		}
-		
 		return currencies;
 	}
 	
@@ -149,9 +148,40 @@ public class Claim implements AdapterCompatible {
 	
 	public String getEmailText(){
 		String emailText = "";
-		emailText += this.name + "\n";
+		emailText += this.name + " \n(" + this.startDate + "-" + this.endDate + ")\n";
+		emailText += this.category + "\n";
+		int start, descLen = this.description.length(), end;
+		int numLines = descLen/80;
+
+		for(int i = 0; i < numLines; i++){
+			//Add description with at most 80 chars per line
+			start = i*80;
+			end = Math.min((i+1)*80, descLen);
+			
+			emailText += this.getDescription().substring(start, end);
+			emailText += "\n";
+		}
+		
+		for(int i= 0; i < 80; i++){
+			emailText += "-";
+		}
+		emailText+="\n";
+		
 		for(Expense e: this.expenseList){
-			emailText += "\t" + e.getCategory() + "\n";
+			emailText += "[" + e.getCategory() + "]" + "\n";
+			emailText += e.getDateString() + "\n";
+			emailText += e.getCostText() + "\n";
+			descLen = e.getDescription().length();
+			
+			numLines = descLen/80;
+
+			for(int i = 0; i < numLines; i++){
+				start = i*80;
+				end = Math.min((i+1)*80, descLen);
+				
+				emailText += e.getDescription().substring(start, end);
+				emailText += "\n";
+			}
 		}
 		return emailText;
 	}
