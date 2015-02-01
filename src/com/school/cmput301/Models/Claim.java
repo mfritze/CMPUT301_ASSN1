@@ -147,5 +147,14 @@ public class Claim implements AdapterCompatible {
 		return costListing.substring(0, costListing.length() - 1);
 	}
 	
+	public String getEmailText(){
+		String emailText = "";
+		emailText += this.name + "\n";
+		for(Expense e: this.expenseList){
+			emailText += "\t" + e.getCategory() + "\n";
+		}
+		return emailText;
+	}
+	
 	
 }

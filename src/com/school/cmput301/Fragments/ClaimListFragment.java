@@ -130,15 +130,26 @@ public class ClaimListFragment extends Fragment {
 				sendClaim.setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						//TODO open email client
-						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
-						if(c.getStatus() == ClaimStatus.SENT){
+						Claim claim = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
+						if(claim.getStatus() == ClaimStatus.SENT){
 							Toast.makeText(getActivity(), "Already sent this claim", Toast.LENGTH_SHORT).show();
-						} else if(c.getStatus() == ClaimStatus.APPROVED){
+						} else if(claim.getStatus() == ClaimStatus.APPROVED){
 							Toast.makeText(getActivity(), "Claim is already approved", Toast.LENGTH_SHORT).show();
 						} else{ // in progress
-							ClaimListSingleton.getClaimList().sendClaim(c);
+							claim.setStatus(ClaimStatus.SENT);
 							ClaimListSingleton.getClaimList().notifyListeners();
+							//Email intent based on https://stackoverflow.com/questions/8284706/send-email-via-gmail Feb 1 2015
+							Intent i = new Intent(Intent.ACTION_SEND);
+					        i.setType("text/plain");
+					        i.putExtra(Intent.EXTRA_EMAIL,
+					                        new String[] {"mfritze@ualberta.ca"});
+					        i.putExtra(Intent.EXTRA_SUBJECT, "Claim Proposal");
+					        i.putExtra(Intent.EXTRA_TEXT, claim.getEmailText());
+					        try {
+					            startActivity(Intent.createChooser(i, "Email Claim"));
+					        } catch (android.content.ActivityNotFoundException ex) {
+					            Toast.makeText(getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+					        }
 						}
 						window.dismiss();
 					}
@@ -153,7 +164,7 @@ public class ClaimListFragment extends Fragment {
 						}else{
 							// background color based on http://stackoverflow.com/questions/23517879/set-background-color-programmatically Feb 1 2015
 							//elementView.setBackgroundColor(Color.parseColor("#dddddd")); //TODO if you want to set the background colol
-							ClaimListSingleton.getClaimList().approveClaim(c);
+							c.setStatus(ClaimStatus.APPROVED);
 							ClaimListSingleton.getClaimList().notifyListeners();
 						}
 						window.dismiss();

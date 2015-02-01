@@ -38,6 +38,7 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/statusImage"
         android:text="@string/cost"
+        android:gravity="right"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

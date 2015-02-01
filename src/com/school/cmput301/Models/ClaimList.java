@@ -55,18 +55,6 @@ public class ClaimList {
 		return this.listeners;
 	}
 	
-	public void sendClaim(Claim c){
-		c.setStatus(ClaimStatus.SENT);
-	}
-	
-	public void approveClaim(Claim c){
-		c.setStatus(ClaimStatus.APPROVED);
-	}
-	
-	public void editClaim(Claim c){
-		c.setStatus(ClaimStatus.INPROGRESS);
-	}
-	
 	public Claim getClaimAtIndex(int i){
 		if(this.claimList.isEmpty() || (this.claimList.size() <= i) || (i < 0)){
 			return null;
