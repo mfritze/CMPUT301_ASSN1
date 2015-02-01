@@ -16,9 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.school.cmput301.ExpenseManagerActivityTEMP;
 import com.school.cmput301.R;
 import com.school.cmput301.Fragments.ExpenseListFragment;
 import com.school.cmput301.Fragments.ExpenseManagerFragment;
@@ -32,7 +30,6 @@ public class ExpenseManagerActivity extends Activity {
 	private ExpenseManagerFragment expenseManagerFragment;
 	private Claim editingClaim;
 	private int claimIndex;
-	private final static String CLAIMINDEX = "com.school.cmput301.claimid";	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +37,9 @@ public class ExpenseManagerActivity extends Activity {
 		setContentView(R.layout.activity_expense_manager_layout);
 		
 		Intent intent = getIntent();
-		this.claimIndex = intent.getIntExtra(CLAIMINDEX, 0);
-		ArrayList<Claim> test = ClaimListSingleton.getClaimList().getClaimArrayList();
-		this.editingClaim = test.get(claimIndex);
+		this.claimIndex = intent.getIntExtra(MainActivity.CLAIMINDEX, 0);
+		ArrayList<Claim> claimArrayList = ClaimListSingleton.getClaimList().getClaimArrayList();
+		this.editingClaim = claimArrayList.get(claimIndex);
 		
 		fm = getFragmentManager();
 		expenseListFragment = new ExpenseListFragment();

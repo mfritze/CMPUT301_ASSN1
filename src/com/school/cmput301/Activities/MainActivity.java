@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.school.cmput301.ExpenseManagerActivityTEMP;
 import com.school.cmput301.R;
 import com.school.cmput301.Fragments.ClaimListFragment;
 import com.school.cmput301.Fragments.ClaimManagerFragment;
@@ -26,8 +25,7 @@ public class MainActivity extends Activity {
 	private FragmentTransaction ft;
 	private ClaimListFragment claimListFragment;
 	private ClaimManagerFragment claimManagerFragment;
-	private final static String CLAIMINDEX = "com.school.cmput301.claimid";
-	
+	public final static String CLAIMINDEX = "com.school.cmput301.claimid";
 	
 	//Fragment management based on http://www.vogella.com/tutorials/AndroidFragments/article.html#usingfragments_layout Jan 30 2015
 	@Override
@@ -96,6 +94,7 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 	public void changeToClaimList(){
 		ft = fm.beginTransaction();
 		ft.replace(R.id.mainFragmentHolder , this.claimListFragment);

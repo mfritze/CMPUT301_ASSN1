@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,13 +15,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.school.cmput301.R;
+import com.school.cmput301.Activities.ExpenseManagerActivity;
 import com.school.cmput301.Activities.MainActivity;
 import com.school.cmput301.Controllers.ClaimAdapter;
 import com.school.cmput301.Controllers.Listener;
@@ -87,6 +88,9 @@ public class ClaimListFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View view, int position,
 					long id) {
 				Toast.makeText(getActivity(),"On Click!", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(getActivity(), ExpenseManagerActivity.class);
+				intent.putExtra(MainActivity.CLAIMINDEX, position);
+				startActivity(intent);
 			}
 		});
 		
