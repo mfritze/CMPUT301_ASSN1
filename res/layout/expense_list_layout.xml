@@ -28,6 +28,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="@string/add_expense" 
-        android:onClick="addExpense"/>
+        android:onClick="createExpense"/>
 
 </RelativeLayout>

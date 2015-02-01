@@ -18,6 +18,7 @@
 	    android:id="@+id/currencyLayout"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
+	    android:paddingTop="3dp"
 	    android:layout_below="@+id/expenseDescription"
 	    android:orientation="horizontal" >
 
@@ -65,6 +66,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true"
 	    android:layout_alignParentLeft="true"
-	    android:text="@string/submit" />
+	    android:text="@string/submit"
+	    android:onClick="submitExpense" />
 
 </RelativeLayout>

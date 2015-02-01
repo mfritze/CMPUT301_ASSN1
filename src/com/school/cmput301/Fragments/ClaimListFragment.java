@@ -21,7 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.school.cmput301.R;
-import com.school.cmput301.Acitivities.MainActivity;
+import com.school.cmput301.Activities.MainActivity;
 import com.school.cmput301.Controllers.ClaimAdapter;
 import com.school.cmput301.Controllers.Listener;
 import com.school.cmput301.Models.Claim;
@@ -46,7 +46,6 @@ public class ClaimListFragment extends Fragment {
 		manageListAdapter();
 	}
 
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -54,7 +53,6 @@ public class ClaimListFragment extends Fragment {
 		Collection<Claim> claimCollection = ClaimListSingleton.getClaimList().getClaims();
 		claims = new ArrayList<Claim>(claimCollection);
 		this.claimAdapter = new ClaimAdapter(getActivity(), R.layout.claim_adapter, this.claims);
-	
 	}
 	
 	private void addListeners(){
@@ -78,7 +76,6 @@ public class ClaimListFragment extends Fragment {
 		});
 	}
 	
-
 	private void manageListAdapter(){
 		final ListView claimView = (ListView) getView().findViewById(R.id.claimListView);
 
@@ -156,7 +153,7 @@ public class ClaimListFragment extends Fragment {
 				window.setBackgroundDrawable(new BitmapDrawable());
 		        window.setOutsideTouchable(true);
 				window.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-				return false;
+				return true;
 			}
 		
 		});

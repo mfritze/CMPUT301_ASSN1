@@ -21,5 +21,6 @@
     <string name="title_activity_expense_creator">ExpenseCreator</string>
     <string name="start">Start Date</string>
     <string name="end">End Date</string>
+    <string name="title_activity_expense_manager">ExpenseManagerActivity</string>
 
 </resources>

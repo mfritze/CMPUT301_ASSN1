@@ -35,7 +35,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.school.cmput301.Acitivities.MainActivity;
+import com.school.cmput301.Activities.MainActivity;
 import com.school.cmput301.Controllers.ExpenseAdapter;
 import com.school.cmput301.Controllers.Listener;
 import com.school.cmput301.Models.Claim;
@@ -43,7 +43,7 @@ import com.school.cmput301.Models.ClaimList;
 import com.school.cmput301.Models.ClaimListSingleton;
 import com.school.cmput301.Models.Expense;
 
-public class ExpenseManagerActivity extends Activity {
+public class ExpenseManagerActivityTEMP extends Activity {
 	private final String CLAIMINDEX = "com.school.cmput301.claimid";
 	private Claim claim;
 	private int claimIndex;
@@ -106,7 +106,7 @@ public class ExpenseManagerActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				AlertDialog.Builder ad = new AlertDialog.Builder(ExpenseManagerActivity.this);
+				AlertDialog.Builder ad = new AlertDialog.Builder(ExpenseManagerActivityTEMP.this);
 				final Claim claim = ClaimListSingleton.getClaimList().getClaimAtIndex(claimIndex);
 				if(claim != null){
 					final Expense expense = claim.getExpenseList().get(position);

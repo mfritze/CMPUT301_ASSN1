@@ -20,7 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.school.cmput301.Acitivities.MainActivity;
+import com.school.cmput301.Activities.MainActivity;
 import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
 
@@ -90,7 +90,7 @@ public class ClaimCreatorActivity extends Activity {
 	}
 	
 	public void startClaimEditor(View v){
-		Intent intent = new Intent(this, ExpenseManagerActivity.class);
+		Intent intent = new Intent(this, ExpenseManagerActivityTEMP.class);
 		
 		EditText nameView = (EditText) findViewById(R.id.claimNameEditText);
 		EditText categoryView = (EditText) findViewById(R.id.claimCategoryEditText);

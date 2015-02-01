@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.school.cmput301.R;
-import com.school.cmput301.Acitivities.MainActivity;
+import com.school.cmput301.Activities.MainActivity;
 import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
 
@@ -66,7 +66,7 @@ public class ClaimManagerFragment extends Fragment{
 		}
 	}
 
-	public int startClaimEditor(){
+	public int createClaim(){
 		String name,category,description, startDateString, endDateString;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //http://stackoverflow.com/questions/17674308/date-from-edittext Jan 18 2015
 		Date startDate = null;
@@ -181,7 +181,7 @@ public class ClaimManagerFragment extends Fragment{
 		}
 	}
 
-	public void setClaim(int index) {
+	public void setClaimIndex(int index) {
 		this.claimIndex = index;
 	}
 

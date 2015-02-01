@@ -1,4 +1,6 @@
-package com.school.cmput301.Acitivities;
+package com.school.cmput301.Activities;
+
+import java.util.ArrayList;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -10,78 +12,120 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.school.cmput301.ExpenseManagerActivity;
+import com.school.cmput301.ExpenseManagerActivityTEMP;
 import com.school.cmput301.R;
-import com.school.cmput301.Fragments.ClaimListFragment;
-import com.school.cmput301.Fragments.ClaimManagerFragment;
+import com.school.cmput301.Fragments.ExpenseListFragment;
+import com.school.cmput301.Fragments.ExpenseManagerFragment;
+import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
 
-public class MainActivity extends Activity {
+public class ExpenseManagerActivity extends Activity {
 	private FragmentManager fm;
 	private FragmentTransaction ft;
-	private ClaimListFragment claimListFragment;
-	private ClaimManagerFragment claimManagerFragment;
-	private final static String CLAIMINDEX = "com.school.cmput301.claimid";
+	private ExpenseListFragment expenseListFragment;
+	private ExpenseManagerFragment expenseManagerFragment;
+	private Claim editingClaim;
+	private int claimIndex;
+	private final static String CLAIMINDEX = "com.school.cmput301.claimid";	
 	
-	
-	//Fragment management based on http://www.vogella.com/tutorials/AndroidFragments/article.html#usingfragments_layout Jan 30 2015
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setActionBar();
-		setContentView(R.layout.activity_main);	
+		setContentView(R.layout.activity_expense_manager_layout);
+		
+		Intent intent = getIntent();
+		this.claimIndex = intent.getIntExtra(CLAIMINDEX, 0);
+		ArrayList<Claim> test = ClaimListSingleton.getClaimList().getClaimArrayList();
+		this.editingClaim = test.get(claimIndex);
+		
 		fm = getFragmentManager();
-		claimListFragment = new ClaimListFragment();
-		claimManagerFragment = new ClaimManagerFragment();
+		expenseListFragment = new ExpenseListFragment();
+		expenseManagerFragment = new ExpenseManagerFragment();
+		
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
-		changeToClaimList();
+		setUpActionBar();
+		startExpenseList();
 	}
-
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		ClaimListSingleton.getClaimList().notifyListeners();
 	}
 
-	private void setActionBar(){
+	public void startExpenseList() {
+		ft = fm.beginTransaction();
+		ft.replace(R.id.claimFragmentHolder , this.expenseListFragment);
+		ft.commit();
+		
+		ClaimListSingleton.getClaimList().notifyListeners();
+	}
+
+	public void createExpense(View v){
+		ft = fm.beginTransaction();
+		ft.replace(R.id.claimFragmentHolder , this.expenseManagerFragment);
+		ft.commit();
+		
+		expenseManagerFragment.setMode(false);
+	}
+	
+	public void editExpense(){
+		ft = fm.beginTransaction();
+		ft.replace(R.id.claimFragmentHolder , this.expenseManagerFragment);
+		ft.commit();
+		
+		expenseManagerFragment.setMode(true);
+	}
+	
+	public void submitExpense(View v){
+		expenseManagerFragment.createExpense();
+	}
+	
+	public Claim getWorkingClaim(){
+		return this.editingClaim;
+	}
+	
+	private void setUpActionBar(){
 		//Based on http://stackoverflow.com/questions/6746665/accessing-a-font-under-assets-folder-from-xml-file-in-android Jan 25 2015
 		final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.actionbar_layout, null);
+		
 		final ActionBar actionBar = getActionBar();
 		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(false);
 		actionBar.setDisplayShowCustomEnabled(true);
 		actionBar.setCustomView(actionBarLayout);
 		
+		
 		//Based on http://stackoverflow.com/questions/6746665/accessing-a-font-under-assets-folder-from-xml-file-in-android Jan 25 2015
 		TextView menuTitle = (TextView) findViewById(R.id.menuTitle);
 		Typeface tf = Typeface.createFromAsset(getAssets(), "Roboto/Roboto-Light.ttf");
 		menuTitle.setTypeface(tf);
+		menuTitle.setText(this.editingClaim.getName());
 		
-		ImageButton backButton = (ImageButton) findViewById(R.id.homeButton);
-		backButton.setOnClickListener(new View.OnClickListener() {
+		ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+		homeButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				ft = fm.beginTransaction();
-				ft.replace(R.id.mainFragmentHolder, new ClaimListFragment());
-				ft.commit();
+				finish();
 			}
 		});
 	}
 	
 	@Override
- 	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.expense_manager, menu);
 		return true;
 	}
 
@@ -96,40 +140,4 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	public void changeToClaimList(){
-		ft = fm.beginTransaction();
-		ft.replace(R.id.mainFragmentHolder , this.claimListFragment);
-		ft.commit();
-		ClaimListSingleton.getClaimList().notifyListeners();
-	}
-	
-	public void createClaim(View v){
-		ft = fm.beginTransaction();
-		ft.replace(R.id.mainFragmentHolder, this.claimManagerFragment);
-		ft.commit();
-		
-		claimManagerFragment.setMode(false);
-	}
-	
-	public void editClaim(int claimIndex){
-		ft = fm.beginTransaction();
-		ft.replace(R.id.mainFragmentHolder, this.claimManagerFragment);
-		ft.commit();
-		
-		claimManagerFragment.setMode(true);
-		claimManagerFragment.setClaim(claimIndex);
-	}
-	
-	public void startClaimEditor(){
-		Intent intent = new Intent(this, ExpenseManagerActivity.class);
-		int index = claimManagerFragment.startClaimEditor();
-		if(index != -1){
-			intent.putExtra(CLAIMINDEX, index);
-			startActivity(intent);
-		}else{
-			Toast.makeText(this, "Error creating claim", Toast.LENGTH_SHORT).show();
-		}
-
-	}
-
 }
