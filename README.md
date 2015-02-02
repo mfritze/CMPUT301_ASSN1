@@ -3,6 +3,9 @@
 Expense Planner is a lightweight, easy to use expense tracker that tracks sets of claims. 
 Each claim can be submitted for review.
 
+###Video Demonstration
+A video demo of the application's funtionality can be found here:
+https://archive.org/details/mfritze_cmput301_asn1
 
 ###Copyright and License
 
