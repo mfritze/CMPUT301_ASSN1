@@ -13,13 +13,6 @@ public class Claim implements AdapterCompatible {
 	private Date startTime;
 	private ArrayList<Expense> expenseList;
 	
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public String getEndDate() {
-		return endDate;
-	}
 
 	public Claim(String name, String category,String description, String startDate, String endDate, Date startTime){
 		this.name = name;
@@ -30,6 +23,14 @@ public class Claim implements AdapterCompatible {
 		this.startTime = startTime;
 		this.status = new ClaimStatus();
 		this.expenseList = new ArrayList<Expense>();
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
 	}
 
 	public HashMap<String, Float> getCurrencies(){
@@ -85,18 +86,24 @@ public class Claim implements AdapterCompatible {
 	public String getName() {
 		return name;
 	}
+	
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getCategory() {
 		return category;
 	}
+	
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -104,9 +111,11 @@ public class Claim implements AdapterCompatible {
 	public int getStatus() {
 		return status.getStatus();
 	}
+	
 	public void setStatus(int status) {
 		this.status.setStatus(status);
 	}
+	
 	public Date getStartTime() {
 		return startTime;
 	}

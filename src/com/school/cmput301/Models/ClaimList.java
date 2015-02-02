@@ -36,17 +36,13 @@ public class ClaimList {
 		this.listeners.add(l);
 	}
 	
-	public void removeListener(int i){
-		this.listeners.remove(i);
-	}
-	
 	public void addClaim(Claim c){
 		claimList.add(c);
 	}
 	
-	public void removeClaim(Claim c){
-		claimList.remove(c);
-	}
+//	public void removeClaim(Claim c){
+//		claimList.remove(c);
+//	}
 	
 	public ArrayList<Claim> getClaimArrayList(){
 		return this.claimList;
@@ -54,10 +50,6 @@ public class ClaimList {
 	
 	public Collection<Claim> getClaims(){
 		return this.claimList;
-	}
-	
-	public ArrayList<Listener> getListeners(){
-		return this.listeners;
 	}
 	
 	public void setClaimArrayList(ArrayList<Claim> claims){
