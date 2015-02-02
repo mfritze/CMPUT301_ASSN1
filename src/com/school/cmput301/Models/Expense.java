@@ -23,6 +23,11 @@ import com.school.cmput301.Controllers.AdapterCompatible;
 //Currency infor http://stackoverflow.com/questions/3888991/currency-code-to-currency-symbol-mapping
 // jan 17 2015
 public class Expense implements AdapterCompatible{
+	/*
+	 * Expense models a claim's expense, and 
+	 * holds descriptor fields, and most importantly,
+	 * the cost of the expense.
+	 */
 	private Date date;
 	private String category, description, dateString;
 	private ExpenseCost cost;

@@ -21,6 +21,7 @@ import java.util.Comparator;
 import com.school.cmput301.Models.Claim;
 
 public class ClaimComparator implements Comparator<Claim>{
+	/* A method for ordering claims */
 
 	@Override
 	public int compare(Claim lhs, Claim rhs) {

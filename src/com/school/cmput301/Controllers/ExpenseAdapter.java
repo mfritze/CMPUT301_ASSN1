@@ -29,6 +29,10 @@ import com.school.cmput301.R;
 import com.school.cmput301.Models.Expense;
 
 public class ExpenseAdapter extends ArrayAdapter{
+	/* The custom array adapter used to 
+	 * display the necessary info for a claim
+	 */
+	
 	//based on http://stackoverflow.com/questions/8166497/custom-adapter-for-list-view Jan 24th 2015
 	ArrayList<Expense> expenses;
 	public ExpenseAdapter(Context context, int textViewResourceId, List<Expense> expenses) {

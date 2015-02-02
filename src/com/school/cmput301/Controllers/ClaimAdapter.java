@@ -31,6 +31,10 @@ import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimStatus;
 
 public class ClaimAdapter extends ArrayAdapter{
+	/* The custom array adapter used to 
+	 * display the necessary info for a claim
+	 */
+	
 	//based on http://stackoverflow.com/questions/8166497/custom-adapter-for-list-view Jan 24th 2015
 	// and http://www.ezzylearning.com/tutorial/customizing-android-listview-items-with-custom-arrayadapter Jan 25 2015
 	ArrayList<Claim> claims;

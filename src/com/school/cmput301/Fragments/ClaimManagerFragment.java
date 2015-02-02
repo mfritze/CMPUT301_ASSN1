@@ -35,6 +35,16 @@ import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
 
 public class ClaimManagerFragment extends Fragment{
+	/*
+	 * ClaimManagerFragment works with the creation
+	 * and editing of Claims. The layout is the same 
+	 * between the two, but the fields are filled
+	 * when you edit.
+	 * If you create a claim, the submit button will
+	 * take you to create expenses for it, while if you're
+	 * editing the claim, it will bring you back
+	 * to the ClaimListFragment. 
+	 */
 	private EditText nameView;
 	private EditText categoryView;
 	private EditText descriptionView;

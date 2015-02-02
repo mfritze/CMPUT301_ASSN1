@@ -21,6 +21,7 @@ import java.util.Comparator;
 import com.school.cmput301.Models.Expense;
 
 public class ExpenseComparator implements Comparator<Expense>{
+	/* A method for ordering expenses */
 
 	@Override
 	public int compare(Expense lhs, Expense rhs) {

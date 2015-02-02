@@ -21,6 +21,15 @@ import java.util.Collection;
 import com.school.cmput301.Controllers.Listener;
 
 public class ClaimList {
+	/*
+	 * ClaimList is a wrapper class
+	 * for an ArrayList<Claim>, with the added
+	 * functionality of better accessing to specific
+	 * claims and provides a list of listeners to 
+	 * keep the date up to date between activities
+	 * and fragments with methods to interface 
+	 * with it.
+	 */
 	private ArrayList<Claim> claimList;
 	private ArrayList<Listener> listeners;
 	

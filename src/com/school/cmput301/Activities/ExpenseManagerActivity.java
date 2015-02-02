@@ -39,6 +39,12 @@ import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
 
 public class ExpenseManagerActivity extends Activity {
+	/*
+	 * ExpenseManagerActivity.class is very similar to MainActivity in
+	 * its design rationale but it managers Expenses instead of Claims.
+	 * It interfaces with the two fragments ExpenseListFragment and 
+	 * ExpenseManagerFragment.
+	 */
 	private FragmentManager fm;
 	private FragmentTransaction ft;
 	private ExpenseListFragment expenseListFragment;

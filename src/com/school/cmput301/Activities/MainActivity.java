@@ -51,6 +51,12 @@ import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimListSingleton;
 
 public class MainActivity extends Activity {
+	/*
+	 * MainActivity.class is the launcher activity and deals with the list of all claims.
+	 * It has the functionality for adding/editing/deleting claims and managing their
+	 * status'. It interfaces with two fragments: ClaimListFragment and ClaimManagerFragment 
+	 * so that there is a more natural division of functionality but with common data.
+	 */
 	private FragmentManager fm;
 	private FragmentTransaction ft;
 	private ClaimListFragment claimListFragment;

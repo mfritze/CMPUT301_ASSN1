@@ -17,6 +17,11 @@
 package com.school.cmput301.Controllers;
 
 public interface AdapterCompatible {
+	/*
+	 * Interface to ensure that a class
+	 * can provide sufficient data
+	 * to display in the custom array adapter
+	 */
 	public String getTitle();
 	public String getDateText();
 	public String getCostText();

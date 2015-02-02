@@ -20,6 +20,12 @@ import java.util.Currency;
 import java.util.Locale;
 
 public class ExpenseCost {
+	/*
+	 * Models the cost of an expense
+	 * by storing both the currency
+	 * and the value of the expense,
+	 * in the respective currency
+	 */
 	private float price;
 	private String currency;
 	

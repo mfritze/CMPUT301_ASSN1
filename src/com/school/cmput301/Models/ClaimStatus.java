@@ -16,8 +16,13 @@
 package com.school.cmput301.Models;
 
 public class ClaimStatus {
-	// 0 = editable, 1 = sent, 2 = closed
-	public static final int INPROGRESS = 0, SENT = 1, APPROVED = 2;
+	/*
+	 * A class to model the status of the 
+	 * claims. The constants are public so that
+	 * there is more unity and readability in 
+	 * status changing. 
+	 */
+	public static final int INPROGRESS = 0, RETURNED = 1, SENT = 2, APPROVED = 3;
 	private int status;
 	
 	public ClaimStatus(int status){
@@ -32,7 +37,7 @@ public class ClaimStatus {
 	}
 	
 	public boolean isEditable(){
-		if(this.status < APPROVED){
+		if(this.status < SENT){
 			return true;
 		}
 		return false;

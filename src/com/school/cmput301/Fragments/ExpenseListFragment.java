@@ -40,6 +40,14 @@ import com.school.cmput301.Models.ClaimListSingleton;
 import com.school.cmput301.Models.Expense;
 
 public class ExpenseListFragment extends Fragment{
+	/*
+	 * ExpenseListFragment works with the Expenses
+	 * as a list. It shows you all of the expenses
+	 * as well as their total cost for the claim.
+	 * It allows you to interface into expense editing 
+	 * or creating fragment.
+	 */
+	
 	Claim editClaim;
 	ExpenseAdapter expenseAdapter;
 	ArrayList<Expense> expenses;

@@ -12,12 +12,20 @@
 	        android:layout_alignParentTop="true"
 	        android:src="@android:drawable/ic_menu_myplaces" />
 
+		<ImageButton
+            android:id="@+id/setReturnedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/setApprovedButton"
+            android:src="@android:drawable/ic_menu_directions" />
+
         <ImageButton
             android:id="@+id/setSentButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/setApprovedButton"
+            android:layout_toRightOf="@+id/setReturnedButton"
             android:src="@android:drawable/ic_dialog_email" />
 
         <ImageButton

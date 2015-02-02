@@ -21,6 +21,12 @@ import com.school.cmput301.Controllers.ClaimComparator;
 import com.school.cmput301.Controllers.ExpenseComparator;
 
 public class ClaimListSingleton {
+	/*
+	 * Singleton pattern for the ClaimList 
+	 * class. It also provides a sorting method
+	 * which sorts the claims and their nested
+	 * ExpenseLists by start date
+	 */
 	private static ClaimList claimList; 
 	
 	static public ClaimList getClaimList(){

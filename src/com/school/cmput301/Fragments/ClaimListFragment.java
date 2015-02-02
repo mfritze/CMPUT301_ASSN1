@@ -45,6 +45,12 @@ import com.school.cmput301.Models.ClaimListSingleton;
 import com.school.cmput301.Models.ClaimStatus;
 
 public class ClaimListFragment extends Fragment {
+	/*
+	 * ClaimListFragment deals with Claims as a list.
+	 * It gives a visual representation of the ClaimList
+	 * and allows you to interface into specific claims'
+	 * functionality.
+	 */
 	private ClaimAdapter claimAdapter;
 	private ArrayList<Claim> claims;
 	
@@ -122,11 +128,12 @@ public class ClaimListFragment extends Fragment {
 				View popupView = inflater.inflate(R.layout.claim_edit_popup, null);
 
 				final PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-				final View elementView = view;
+				final View elementView = view; 
 				ImageButton deleteClaim = (ImageButton) popupView.findViewById(R.id.removeClaimButton);
 				ImageButton sendClaim = (ImageButton) popupView.findViewById(R.id.setSentButton);
 				ImageButton approveClaim = (ImageButton) popupView.findViewById(R.id.setApprovedButton);
 				ImageButton editClaim = (ImageButton) popupView.findViewById(R.id.setInProgressButton);
+				ImageButton returnClaim = (ImageButton) popupView.findViewById(R.id.setReturnedButton);
 				
 				final int claimPosition = position;
 				
@@ -155,7 +162,7 @@ public class ClaimListFragment extends Fragment {
 							Intent i = new Intent(Intent.ACTION_SEND);
 					        i.setType("text/plain");
 					        i.putExtra(Intent.EXTRA_EMAIL,
-					                        new String[] {"mfritze@ualberta.ca"});
+					                        new String[] {""});
 					        i.putExtra(Intent.EXTRA_SUBJECT, "Claim Proposal");
 					        i.putExtra(Intent.EXTRA_TEXT, claim.getEmailText());
 					        try {
@@ -163,8 +170,8 @@ public class ClaimListFragment extends Fragment {
 					        } catch (android.content.ActivityNotFoundException ex) {
 					            Toast.makeText(getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
 					        }
+							window.dismiss();
 						}
-						window.dismiss();
 					}
 				});
 				
@@ -179,8 +186,8 @@ public class ClaimListFragment extends Fragment {
 							//elementView.setBackgroundColor(Color.parseColor("#dddddd")); //TODO if you want to set the background colol
 							c.setStatus(ClaimStatus.APPROVED);
 							ClaimListSingleton.getClaimList().notifyListeners();
+							window.dismiss();
 						}
-						window.dismiss();
 					}
 				});
 
@@ -189,15 +196,30 @@ public class ClaimListFragment extends Fragment {
 					@Override
 					public void onClick(View v) {
 						Claim c = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
-						window.dismiss();
 						if(c.isEditable()){
 								c.setStatus(ClaimStatus.INPROGRESS);
 								((MainActivity) getActivity()).editClaim(claimPosition);
+								window.dismiss();
 						} else{
 							Toast.makeText(getActivity(), "This claim can't be edited", Toast.LENGTH_SHORT).show();
 						}
 					}
 				});
+				
+				returnClaim.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Claim claim = ClaimListSingleton.getClaimList().getClaimAtIndex(claimPosition);
+						if(claim.getStatus() != ClaimStatus.SENT){
+							Toast.makeText(getActivity(), "Can't return for a non-sent claim", Toast.LENGTH_SHORT).show();
+						}else{
+							claim.setStatus(ClaimStatus.RETURNED);
+							window.dismiss();
+						}
+					}
+				});
+				
 				window.setBackgroundDrawable(new BitmapDrawable());
 		        window.setOutsideTouchable(true);
 				window.showAtLocation(popupView, Gravity.CENTER, 0, 0);

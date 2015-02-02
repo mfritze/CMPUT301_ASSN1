@@ -39,6 +39,11 @@ import com.school.cmput301.Models.Expense;
 import com.school.cmput301.Models.ExpenseCost;
 
 public class ExpenseManagerFragment extends Fragment{
+	/* ExpenseManagerFragment works
+	 * on editing and creating expenses. It's layout
+	 * is the same between editing and creating,
+	 * but the fields will be filled when you edit.
+	 */
 	private Claim editClaim;
 	private int expenseIndex;
 	private Expense editExpense = null;
@@ -112,7 +117,7 @@ public class ExpenseManagerFragment extends Fragment{
 			Toast.makeText(getActivity(), "Fill in all of the fields!", Toast.LENGTH_SHORT).show();
 		}else{
 			try {
-				int month = dateView.getMonth(), day = dateView.getDayOfMonth(), year = dateView.getYear();
+				int month = dateView.getMonth() + 1, day = dateView.getDayOfMonth(), year = dateView.getYear();
 				dateString = String.format("%d/%d/%d", day,month, year);
 				date = sdf.parse(dateString);
 			} catch (ParseException e) {

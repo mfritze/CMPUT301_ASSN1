@@ -22,6 +22,17 @@ import java.util.HashMap;
 import com.school.cmput301.Controllers.AdapterCompatible;
 
 public class Claim implements AdapterCompatible {
+	/*
+	 * Claim models a claim, with descriptor fields
+	 * and a set of expenses.
+	 * 
+	 * It provides get and set methods for all fields,
+	 * allows you to see available currencies,
+	 * check if it's editable
+	 * and get formatted text fields for dates, cost
+	 * and emails.
+	 * 
+	 */
 	private String name, category, description;
 	private ClaimStatus status;
 	private String startDate, endDate; //TODO
@@ -175,7 +186,7 @@ public class Claim implements AdapterCompatible {
 		emailText += this.name + " \n(" + this.startDate + "-" + this.endDate + ")\n";
 		emailText += this.category + "\n";
 		int start, descLen = this.description.length(), end;
-		int numLines = descLen/80;
+		double numLines = Math.ceil(descLen/80);
 
 		for(int i = 0; i < numLines; i++){
 			//Add description with at most 80 chars per line
@@ -197,7 +208,7 @@ public class Claim implements AdapterCompatible {
 			emailText += e.getCostText() + "\n";
 			descLen = e.getDescription().length();
 			
-			numLines = descLen/80;
+			numLines = Math.ceil(descLen/80);
 
 			for(int i = 0; i < numLines; i++){
 				start = i*80;
