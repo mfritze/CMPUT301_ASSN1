@@ -31,7 +31,8 @@ import com.school.cmput301.Models.Claim;
 import com.school.cmput301.Models.ClaimStatus;
 
 public class ClaimAdapter extends ArrayAdapter{
-	/* The custom array adapter used to 
+	/* 
+	 * The custom array adapter used to 
 	 * display the necessary info for a claim
 	 */
 	
