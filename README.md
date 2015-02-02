@@ -1,10 +1,10 @@
-# Expense Planner
+### Expense Planner
 
 Expense Planner is a lightweight, easy to use expense tracker that tracks sets of claims. 
 Each claim can be submitted for review.
 
 
-#Copyright and License
+###Copyright and License
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:
 
